@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>الاشتراكات | BOOSTIFY STORE</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+
+        .subscriptions-page {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 20px;
+        }
+
+        .subscriptions-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .subscriptions-header .badge {
+            color: #ff0000;
+            font-weight: bold;
+        }
+
+        .subscriptions-header h1 {
+            font-size: 44px;
+            margin: 15px 0;
+        }
+
+        .subscriptions-header p {
+            color: #999;
+            line-height: 1.8;
+        }
+
+        .subscriptions-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .subscription-card {
+            background: rgba(255,255,255,.04);
+            border: 1px solid rgba(255,255,255,.08);
+            border-radius: 24px;
+            padding: 30px;
+            text-align: center;
+            transition: .3s ease;
+        }
+
+        .subscription-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(255,0,0,.45);
+            box-shadow: 0 20px 50px rgba(255,0,0,.12);
+        }
+
+        .subscription-image {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+            display: block;
+            margin: 0 auto 25px;
+            border-radius: 20px;
+        }
+
+        .subscription-card h2 {
+            font-size: 23px;
+            margin-bottom: 12px;
+        }
+
+        .duration {
+            color: #999;
+            margin-bottom: 15px;
+        }
+
+        .price {
+            color: #ff0000;
+            font-size: 30px;
+            font-weight: 800;
+            margin: 20px 0;
+        }
+
+        .subscription-card .primary-btn {
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        @media(max-width:900px) {
+
+            .subscriptions-grid {
+                grid-template-columns: repeat(2,1fr);
+            }
+
+        }
+
+        @media(max-width:600px) {
+
+            .subscriptions-page {
+                padding: 50px 15px;
+            }
+
+            .subscriptions-header h1 {
+                font-size: 34px;
+            }
+
+            .subscriptions-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header class="navbar">
+
+    <div class="logo">
+        BOOSTIFY <span>STORE</span>
+    </div>
+
+
+    <nav>
+
+        <a href="/">
+            الرئيسية
+        </a>
+
+        <a href="/services">
+            الخدمات
+        </a>
+
+        <a href="/subscriptions">
+            الاشتراكات
+        </a>
+
+        <a href="/contact">
+            تواصل معنا
+        </a>
+
+    </nav>
+
+
+    {% if session.get('user_id') %}
+
+        <div class="user-menu">
+
+            <span class="user-name">
+                {{ session.get('name') }}
+            </span>
+
+            <a href="/logout"
+               class="login-btn">
+                تسجيل الخروج
+            </a>
+
+        </div>
+
+    {% else %}
+
+        <a href="/login"
+           class="login-btn">
+            تسجيل الدخول
+        </a>
+
+    {% endif %}
+
+</header>
+
+
+<main>
+
+<section class="subscriptions-page">
+
+
+    <div class="subscriptions-header">
+
+        <div class="badge">
+            BOOSTIFY STORE
+        </div>
+
+        <h1>
+            الاشتراكات الرقمية
+        </h1>
+
+        <p>
+            اختر الاشتراك المناسب ليك واستمتع بخدمات رقمية مميزة.
+        </p>
+
+    </div>
+
+
+    <div class="subscriptions-grid">
+
+
+        <!-- GOOGLE AI PRO -->
+
+        <div class="subscription-card">
+
+            <img
+                src="{{ url_for('static', filename='images/gemini.png') }}"
+                alt="Google AI Pro"
+                class="subscription-image"
+            >
+
+            <h2>
+                Google AI Pro
+            </h2>
+
+            <div class="duration">
+                18 شهر
+            </div>
+
+            <div class="price">
+                750 ج
+            </div>
+
+            <a
+                href="{{ url_for('checkout',
+                    product='Google AI Pro',
+                    duration='18 شهر',
+                    price='750',
+                    category='subscription') }}"
+                class="primary-btn"
+            >
+                اطلب الآن
+            </a>
+
+        </div>
+
+
+        <!-- CHATGPT -->
+
+        <div class="subscription-card">
+
+            <img
+                src="{{ url_for('static', filename='images/chatgpt.png') }}"
+                alt="ChatGPT"
+                class="subscription-image"
+            >
+
+            <h2>
+                ChatGPT
+            </h2>
+
+            <div class="duration">
+                شهري
+            </div>
+
+            <div class="price">
+                795 ج
+            </div>
+
+            <a
+                href="{{ url_for('checkout',
+                    product='ChatGPT',
+                    duration='شهري',
+                    price='795',
+                    category='subscription') }}"
+                class="primary-btn"
+            >
+                اطلب الآن
+            </a>
+
+        </div>
+
+
+        <!-- CANVA -->
+
+        <div class="subscription-card">
+
+            <img
+                src="{{ url_for('static', filename='images/canva.png') }}"
+                alt="Canva Pro"
+                class="subscription-image"
+            >
+
+            <h2>
+                Canva Pro
+            </h2>
+
+            <div class="duration">
+                3 سنين
+            </div>
+
+            <div class="price">
+                350 ج
+            </div>
+
+            <a
+                href="{{ url_for('checkout',
+                    product='Canva Pro',
+                    duration='3 سنين',
+                    price='350',
+                    category='subscription') }}"
+                class="primary-btn"
+            >
+                اطلب الآن
+            </a>
+
+        </div>
+
+
+        <!-- CAPCUT -->
+
+        <div class="subscription-card">
+
+            <img
+                src="{{ url_for('static', filename='images/capcut.png') }}"
+                alt="CapCut Pro"
+                class="subscription-image"
+            >
+
+            <h2>
+                CapCut Pro
+            </h2>
+
+            <div class="duration">
+                1300 Credits شهري
+            </div>
+
+            <div class="price">
+                380 ج
+            </div>
+
+            <a
+                href="{{ url_for('checkout',
+                    product='CapCut Pro',
+                    duration='1300 Credits شهري',
+                    price='380',
+                    category='subscription') }}"
+                class="primary-btn"
+            >
+                اطلب الآن
+            </a>
+
+        </div>
+
+
+        <!-- ZOOM -->
+
+        <div class="subscription-card">
+
+            <img
+                src="{{ url_for('static', filename='images/zoom.png') }}"
+                alt="Zoom Pro"
+                class="subscription-image"
+            >
+
+            <h2>
+                Zoom Pro
+            </h2>
+
+            <div class="duration">
+                شهري
+            </div>
+
+            <div class="price">
+                590 ج
+            </div>
+
+            <a
+                href="{{ url_for('checkout',
+                    product='Zoom Pro',
+                    duration='شهري',
+                    price='590',
+                    category='subscription') }}"
+                class="primary-btn"
+            >
+                اطلب الآن
+            </a>
+
+        </div>
+
+
+        <!-- MICROSOFT -->
+
+        <div class="subscription-card">
+
+            <img
+                src="{{ url_for('static', filename='images/microsoft.png') }}"
+                alt="Microsoft"
+                class="subscription-image"
+            >
+
+            <h2>
+                Microsoft
+            </h2>
+
+            <div class="duration">
+                سنوي
+            </div>
+
+            <div class="price">
+                999 ج
+            </div>
+
+            <a
+                href="{{ url_for('checkout',
+                    product='Microsoft',
+                    duration='سنوي',
+                    price='999',
+                    category='subscription') }}"
+                class="primary-btn"
+            >
+                اطلب الآن
+            </a>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+</main>
+
+
+<footer>
+
+    <div class="footer-logo">
+        BOOSTIFY <span>STORE</span>
+    </div>
+
+    <p>
+        © 2026 BOOSTIFY STORE — جميع الحقوق محفوظة.
+    </p>
+
+</footer>
+
+
+</body>
+
+</html>

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>تسجيل الدخول | BOOSTIFY STORE</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+        .auth-section {
+            min-height: 75vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 20px;
+        }
+
+        .auth-box {
+            width: 100%;
+            max-width: 460px;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 0, 0, 0.18);
+            border-radius: 24px;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 0 40px rgba(255, 0, 0, 0.08);
+        }
+
+        .auth-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            margin-bottom: 20px;
+            border-radius: 50px;
+            background: rgba(255, 0, 0, 0.08);
+            border: 1px solid rgba(255, 0, 0, 0.2);
+            color: #ff4444;
+            font-size: 14px;
+        }
+
+        .auth-box h1 {
+            margin-bottom: 12px;
+            font-size: 36px;
+        }
+
+        .auth-description {
+            color: #aaa;
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .auth-form label {
+            color: #ddd;
+            font-size: 14px;
+        }
+
+        .auth-form input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 15px 16px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: #101010;
+            color: white;
+            outline: none;
+            font-size: 15px;
+            transition: 0.3s;
+        }
+
+        .auth-form input:focus {
+            border-color: #ff0000;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.12);
+        }
+
+        .auth-submit {
+            width: 100%;
+            border: 0;
+            cursor: pointer;
+            margin-top: 8px;
+        }
+
+        .error-message {
+            margin-bottom: 20px;
+            padding: 12px 15px;
+            border-radius: 12px;
+            background: rgba(255, 0, 0, 0.08);
+            border: 1px solid rgba(255, 0, 0, 0.2);
+            color: #ff5c5c;
+        }
+
+        .register-text {
+            margin-top: 25px;
+            color: #aaa;
+            text-align: center;
+        }
+
+        .register-text a {
+            color: #ff0000;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .back-home {
+            display: inline-block;
+            margin-top: 20px;
+            color: #888;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .back-home:hover {
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="navbar">
+
+    <div class="logo">
+        BOOSTIFY <span>STORE</span>
+    </div>
+
+    <a href="/" class="login-btn">
+        الرئيسية
+    </a>
+
+</header>
+
+
+<main>
+
+    <section class="auth-section">
+
+        <div class="auth-box">
+
+            <div class="auth-badge">
+                🔐 حساب BOOSTIFY STORE
+            </div>
+
+            <h1>
+                تسجيل الدخول
+            </h1>
+
+            <p class="auth-description">
+                سجل دخولك للوصول إلى حسابك وطلباتك وخدماتك.
+            </p>
+
+
+            {% if error %}
+
+            <div class="error-message">
+                {{ error }}
+            </div>
+
+            {% endif %}
+
+
+            <form
+                action="{{ url_for('login') }}"
+                method="POST"
+                class="auth-form"
+            >
+
+                <input
+                    type="hidden"
+                    name="next"
+                    value="{{ next or '/' }}"
+                >
+
+
+                <label>
+                    البريد الإلكتروني
+                </label>
+
+                <input
+                    type="email"
+                    name="email"
+                    placeholder="example@email.com"
+                    autocomplete="email"
+                    required
+                >
+
+
+                <label>
+                    كلمة المرور
+                </label>
+
+                <input
+                    type="password"
+                    name="password"
+                    placeholder="••••••••"
+                    autocomplete="current-password"
+                    required
+                >
+
+
+                <button
+                    type="submit"
+                    class="primary-btn auth-submit"
+                >
+                    تسجيل الدخول
+                </button>
+
+            </form>
+
+
+            <p class="register-text">
+
+                مش عندك حساب؟
+
+                <a href="{{ url_for('register', next=next or '/') }}">
+                    إنشاء حساب
+                </a>
+
+            </p>
+
+
+            <a href="/" class="back-home">
+                ← العودة للرئيسية
+            </a>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer>
+
+    <div class="footer-logo">
+        BOOSTIFY <span>STORE</span>
+    </div>
+
+    <p>
+        © 2026 BOOSTIFY STORE — جميع الحقوق محفوظة.
+    </p>
+
+</footer>
+
+
+</body>
+</html>

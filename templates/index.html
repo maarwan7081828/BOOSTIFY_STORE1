@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BOOSTIFY STORE | الرئيسية</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: #080808;
+            color: #fff;
+            font-family: Arial, sans-serif;
+        }
+
+        .hero {
+            min-height: 620px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 100px 20px;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 850px;
+        }
+
+        .badge {
+            display: inline-block;
+            color: #ff0000;
+            font-weight: bold;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            font-size: 70px;
+            margin: 10px 0 25px;
+            letter-spacing: 2px;
+        }
+
+        .hero h1 span,
+        .logo span,
+        .footer-logo span {
+            color: #ff0000;
+        }
+
+        .hero h2 {
+            font-size: 34px;
+            margin: 0 0 20px;
+        }
+
+        .hero-text {
+            color: #aaa;
+            font-size: 18px;
+            line-height: 2;
+            max-width: 700px;
+            margin: 0 auto 35px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .primary-btn,
+        .secondary-btn {
+            display: inline-block;
+            padding: 14px 30px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: .3s;
+        }
+
+        .primary-btn {
+            background: #ff0000;
+            color: #fff;
+        }
+
+        .primary-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255,0,0,.25);
+        }
+
+        .secondary-btn {
+            color: #fff;
+            border: 1px solid rgba(255,255,255,.15);
+            background: rgba(255,255,255,.04);
+        }
+
+        .secondary-btn:hover {
+            border-color: #ff0000;
+            transform: translateY(-3px);
+        }
+
+        /* FEATURES */
+
+        .features {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px 90px;
+
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 22px;
+        }
+
+        .feature-card {
+            padding: 30px 25px;
+            min-height: 190px;
+
+            background: rgba(255,255,255,.035);
+            border: 1px solid rgba(255,255,255,.08);
+            border-radius: 20px;
+
+            text-align: center;
+
+            transition: .3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-7px);
+            border-color: rgba(255,0,0,.4);
+            box-shadow: 0 15px 40px rgba(255,0,0,.08);
+        }
+
+        .feature-icon {
+            width: 45px;
+            height: 45px;
+            margin: 0 auto 18px;
+
+            border-radius: 50%;
+            background: rgba(255,0,0,.1);
+            border: 1px solid rgba(255,0,0,.35);
+        }
+
+        .feature-card h3 {
+            margin: 0 0 12px;
+            font-size: 20px;
+        }
+
+        .feature-card p {
+            margin: 0;
+            color: #999;
+            line-height: 1.8;
+        }
+
+        /* ABOUT */
+
+        .about-section {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .section-label {
+            color: #ff0000;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .about-section h2 {
+            font-size: 38px;
+            margin: 0 0 25px;
+        }
+
+        .about-section p {
+            color: #aaa;
+            line-height: 2;
+            font-size: 17px;
+            margin: 0 auto;
+            max-width: 800px;
+        }
+
+        /* SERVICES */
+
+        .categories {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 45px;
+        }
+
+        .section-title p {
+            color: #ff0000;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .section-title h2 {
+            font-size: 40px;
+            margin: 0;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        .category-card {
+            padding: 35px;
+
+            background: rgba(255,255,255,.035);
+            border: 1px solid rgba(255,255,255,.08);
+            border-radius: 22px;
+
+            transition: .3s;
+        }
+
+        .category-card:hover {
+            transform: translateY(-7px);
+            border-color: rgba(255,0,0,.45);
+            box-shadow: 0 20px 50px rgba(255,0,0,.08);
+        }
+
+        .category-card h3 {
+            font-size: 24px;
+            margin: 0 0 15px;
+        }
+
+        .category-card p {
+            color: #999;
+            line-height: 1.9;
+            margin: 0 0 25px;
+        }
+
+        .category-card a {
+            color: #ff0000;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        /* CTA */
+
+        .cta {
+            max-width: 1000px;
+            margin: 60px auto 100px;
+            padding: 70px 25px;
+
+            text-align: center;
+
+            background: rgba(255,255,255,.035);
+            border: 1px solid rgba(255,0,0,.2);
+            border-radius: 28px;
+
+            box-shadow: 0 0 60px rgba(255,0,0,.05);
+        }
+
+        .cta p:first-child {
+            color: #ff0000;
+            font-weight: bold;
+        }
+
+        .cta h2 {
+            font-size: 40px;
+            margin: 20px 0 15px;
+        }
+
+        .cta-text {
+            color: #aaa;
+            margin-bottom: 30px;
+        }
+
+        /* FOOTER */
+
+        footer {
+            padding: 45px 20px;
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,.08);
+        }
+
+        .footer-logo {
+            font-size: 25px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        footer p {
+            color: #777;
+            margin: 0;
+        }
+
+        /* MOBILE */
+
+        @media(max-width: 900px) {
+
+            .features {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+        }
+
+        @media(max-width: 600px) {
+
+            .hero {
+                padding: 70px 20px;
+            }
+
+            .hero h1 {
+                font-size: 45px;
+            }
+
+            .hero h2 {
+                font-size: 26px;
+            }
+
+            .features,
+            .category-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-section h2,
+            .section-title h2,
+            .cta h2 {
+                font-size: 30px;
+            }
+
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+<header class="navbar">
+
+    <div class="logo">
+        BOOSTIFY <span>STORE</span>
+    </div>
+
+    <nav>
+        <a href="/">الرئيسية</a>
+        <a href="/services">الخدمات</a>
+        <a href="/subscriptions">الاشتراكات</a>
+        <a href="/contact">تواصل معنا</a>
+    </nav>
+
+    {% if session.get('user_id') %}
+
+        <div class="user-menu">
+
+            <span class="user-name">
+                👤 {{ session.get('name') }}
+            </span>
+
+            <a href="/logout" class="login-btn">
+                تسجيل الخروج
+            </a>
+
+        </div>
+
+    {% else %}
+
+        <a href="/login" class="login-btn">
+            تسجيل الدخول
+        </a>
+
+    {% endif %}
+
+</header>
+
+
+<main>
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <div class="badge">
+                حلول رقمية متطورة
+            </div>
+
+            <h1>
+                BOOSTIFY <span>STORE</span>
+            </h1>
+
+            <h2>
+                كل ما تحتاجه لبناء حضورك الرقمي
+            </h2>
+
+            <p class="hero-text">
+                خدمات سوشيال ميديا، تصميم جرافيك، إعلانات ممولة
+                واشتراكات رقمية في مكان واحد.
+            </p>
+
+            <div class="hero-buttons">
+
+                <a href="/services" class="primary-btn">
+                    استكشف الخدمات
+                </a>
+
+                <a href="/subscriptions" class="secondary-btn">
+                    الاشتراكات
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- FEATURES -->
+
+    <section class="features">
+
+        <div class="feature-card">
+
+            <div class="feature-icon"></div>
+
+            <h3>
+                تنفيذ سريع
+            </h3>
+
+            <p>
+                معالجة طلباتك وتنفيذ الخدمات في أسرع وقت ممكن.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon"></div>
+
+            <h3>
+                جودة عالية
+            </h3>
+
+            <p>
+                خدمات رقمية مصممة بعناية لتناسب احتياجاتك.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon"></div>
+
+            <h3>
+                دفع سهل
+            </h3>
+
+            <p>
+                طرق دفع بسيطة وآمنة لتسهيل عملية الطلب.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon"></div>
+
+            <h3>
+                دعم العملاء
+            </h3>
+
+            <p>
+                فريق دعم جاهز لمساعدتك ومتابعة طلباتك.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- ABOUT -->
+
+    <section class="about-section">
+
+        <div class="section-label">
+            ABOUT US
+        </div>
+
+        <h2>
+            من نحن؟
+        </h2>
+
+        <p>
+            BOOSTIFY STORE هي منصة رقمية بتوفر لك مجموعة متكاملة
+            من خدمات السوشيال ميديا والتصميم والإعلانات والاشتراكات الرقمية.
+            هدفنا نساعدك تطور وجودك على الإنترنت وتوصل لنتائج أفضل
+            بطريقة سهلة وسريعة واحترافية.
+        </p>
+
+    </section>
+
+
+    <!-- SERVICES -->
+
+    <section class="categories">
+
+        <div class="section-title">
+
+            <p>
+                WHAT WE OFFER
+            </p>
+
+            <h2>
+                خدماتنا
+            </h2>
+
+        </div>
+
+
+        <div class="category-grid">
+
+            <div class="category-card">
+
+                <h3>
+                    Social Media
+                </h3>
+
+                <p>
+                    زيادة المتابعين والمشاهدات والتفاعل
+                    لمختلف منصات التواصل الاجتماعي.
+                </p>
+
+                <a href="/service/followers">
+                    اكتشف الخدمات ←
+                </a>
+
+            </div>
+
+
+            <div class="category-card">
+
+                <h3>
+                    Graphic Design
+                </h3>
+
+                <p>
+                    تصميم لوجوهات وبوستات وإعلانات
+                    وهوية بصرية بشكل احترافي.
+                </p>
+
+                <a href="/service/graphic-design">
+                    اكتشف الخدمات ←
+                </a>
+
+            </div>
+
+
+            <div class="category-card">
+
+                <h3>
+                    Subscriptions
+                </h3>
+
+                <p>
+                    اشتراكات رقمية لمجموعة من أشهر
+                    البرامج والخدمات.
+                </p>
+
+                <a href="/subscriptions">
+                    شاهد الاشتراكات ←
+                </a>
+
+            </div>
+
+
+            <div class="category-card">
+
+                <h3>
+                    Paid Advertising
+                </h3>
+
+                <p>
+                    حلول إعلانية تساعد نشاطك التجاري
+                    على الوصول إلى جمهور أكبر.
+                </p>
+
+                <a href="/service/paid-ads">
+                    ابدأ الآن ←
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- CTA -->
+
+    <section class="cta">
+
+        <p>
+            BOOST YOUR DIGITAL PRESENCE
+        </p>
+
+        <h2>
+            جاهز تطور شغلك؟
+        </h2>
+
+        <p class="cta-text">
+            اختار الخدمة المناسبة ليك وابدأ رحلتك الرقمية.
+        </p>
+
+        <a href="/services" class="primary-btn">
+            ابدأ الآن
+        </a>
+
+    </section>
+
+</main>
+
+
+<footer>
+
+    <div class="footer-logo">
+        BOOSTIFY <span>STORE</span>
+    </div>
+
+    <p>
+        تواصل معنا: 01123308826
+    </p>
+
+    <p>
+        © 2026 BOOSTIFY STORE — جميع الحقوق محفوظة.
+    </p>
+
+</footer>
+
+
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+</body>
+</html>

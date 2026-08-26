@@ -1,0 +1,1559 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>إتمام الطلب | BOOSTIFY STORE</title>
+
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}">
+
+<style>
+
+/* =========================================================
+   CHECKOUT
+========================================================= */
+
+.checkout-page {
+    max-width: 950px;
+    margin: auto;
+    padding: 70px 20px;
+}
+
+.checkout-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.checkout-header .badge {
+    color: #ff0000;
+    font-weight: bold;
+}
+
+.checkout-header h1 {
+    font-size: 42px;
+    margin: 15px 0;
+}
+
+.checkout-header p {
+    color: #999;
+}
+
+.checkout-box {
+    max-width: 720px;
+    margin: auto;
+    padding: 35px;
+    border-radius: 25px;
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(255,255,255,.08);
+    box-shadow: 0 0 50px rgba(255,0,0,.06);
+}
+
+/* =========================================================
+   ORDER INFO
+========================================================= */
+
+.order-info {
+    padding: 22px;
+    border-radius: 18px;
+    background: rgba(255,255,255,.03);
+    border: 1px solid rgba(255,255,255,.07);
+    margin-bottom: 30px;
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 13px 0;
+    border-bottom: 1px solid rgba(255,255,255,.06);
+}
+
+.info-row:last-child {
+    border-bottom: 0;
+}
+
+.info-label {
+    color: #999;
+}
+
+.info-value {
+    font-weight: bold;
+}
+
+.price-value {
+    color: #ff0000;
+    font-size: 20px;
+}
+
+/* =========================================================
+   FORM
+========================================================= */
+
+.form-section {
+    margin-top: 25px;
+}
+
+.form-section h2 {
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 9px;
+    font-weight: bold;
+}
+
+.form-group label span {
+    color: #ff0000;
+}
+
+.form-group input,
+.form-group textarea {
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 14px 16px;
+
+    border-radius: 12px;
+
+    border: 1px solid rgba(255,255,255,.1);
+
+    background: rgba(255,255,255,.04);
+
+    color: white;
+
+    outline: none;
+
+    font-family: inherit;
+}
+
+.form-group textarea {
+    min-height: 130px;
+    resize: vertical;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+
+    border-color: #ff0000;
+
+    box-shadow:
+        0 0 0 3px rgba(255,0,0,.08),
+        0 0 25px rgba(255,0,0,.15);
+
+    transform: translateY(-2px);
+}
+
+.optional {
+    color: #777;
+    font-size: 13px;
+}
+
+/* =========================================================
+   PAYMENT
+========================================================= */
+
+.payment-section {
+
+    margin-top: 30px;
+
+    padding-top: 30px;
+
+    border-top: 1px solid rgba(255,255,255,.08);
+}
+
+.payment-section h2 {
+    margin-bottom: 20px;
+}
+
+
+/* اختيار طرق الدفع */
+
+.payment-select {
+
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 18px;
+
+    margin-bottom: 25px;
+}
+
+
+/* إخفاء الراديو */
+
+.payment-option {
+
+    position: relative;
+
+    display: block;
+
+    cursor: pointer;
+}
+
+.payment-option input {
+
+    position: absolute;
+
+    opacity: 0;
+
+    pointer-events: none;
+}
+
+
+/* كارت الدفع الأبيض */
+
+.payment-card {
+
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    min-height: 90px;
+
+    padding: 18px;
+
+    background: #ffffff;
+
+    border: 2px solid #ffffff;
+
+    border-radius: 18px;
+
+    color: #000000;
+
+    cursor: pointer;
+
+    overflow: hidden;
+
+    transition:
+        transform .3s ease,
+        border-color .3s ease,
+        box-shadow .3s ease;
+}
+
+
+/* الصور */
+
+.payment-card img {
+
+    width: 55px;
+
+    height: 55px;
+
+    object-fit: contain;
+
+    flex-shrink: 0;
+}
+
+
+/* الكلام أسود */
+
+.payment-card-info {
+    text-align: right;
+}
+
+.payment-card-info h3 {
+
+    margin: 0 0 5px;
+
+    color: #000000;
+
+    font-size: 17px;
+
+    font-weight: 800;
+}
+
+.payment-card-info p {
+
+    margin: 0;
+
+    color: #000000;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    direction: ltr;
+}
+
+
+/* علامة الصح */
+
+.payment-check {
+
+    position: absolute;
+
+    top: 10px;
+
+    left: 10px;
+
+    width: 26px;
+
+    height: 26px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #ff0000;
+
+    color: #ffffff;
+
+    font-size: 14px;
+
+    font-weight: 900;
+
+    opacity: 0;
+
+    transform: scale(.4);
+
+    transition:
+        opacity .3s ease,
+        transform .3s ease;
+}
+
+
+/* Hover */
+
+.payment-card:hover {
+
+    transform: translateY(-5px);
+
+    border-color: #ff0000;
+
+    box-shadow:
+        0 10px 35px rgba(255,0,0,.22),
+        0 0 30px rgba(255,0,0,.12);
+}
+
+
+/* Selected */
+
+.payment-option input:checked + .payment-card {
+
+    border-color: #ff0000;
+
+    box-shadow:
+        0 10px 40px rgba(255,0,0,.30),
+        0 0 35px rgba(255,0,0,.20);
+
+    transform: translateY(-4px);
+}
+
+
+/* Show check */
+
+.payment-option input:checked + .payment-card .payment-check {
+
+    opacity: 1;
+
+    transform: scale(1);
+}
+
+
+/* خط ضوئي للكارت المختار */
+
+.payment-option input:checked + .payment-card::after {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+
+    left: -100%;
+
+    width: 60%;
+
+    height: 100%;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,0,0,.13),
+        transparent
+    );
+
+    transform: skewX(-20deg);
+
+    animation: paymentShine 2s linear infinite;
+
+    pointer-events: none;
+}
+
+@keyframes paymentShine {
+
+    0% {
+        left: -100%;
+    }
+
+    100% {
+        left: 160%;
+    }
+}
+
+
+/* =========================================================
+   PAYMENT INPUTS
+========================================================= */
+
+.payment-input {
+
+    margin-top: 20px;
+}
+
+.payment-input label {
+    color: #ffffff;
+}
+
+.payment-input input {
+
+    background: rgba(255,255,255,.04);
+
+    color: #ffffff;
+
+    border: 1px solid rgba(255,255,255,.12);
+}
+
+.payment-input input::placeholder {
+    color: #777;
+}
+
+
+/* =========================================================
+   NOTICE
+========================================================= */
+
+.payment-notice {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 12px;
+
+    margin-top: 20px;
+
+    padding: 18px;
+
+    border-radius: 16px;
+
+    background: rgba(255,0,0,.06);
+
+    border: 1px solid rgba(255,0,0,.25);
+}
+
+.payment-notice-icon {
+
+    font-size: 24px;
+
+    animation:
+        noticePulse 1.5s ease-in-out infinite;
+}
+
+.payment-notice strong {
+
+    display: block;
+
+    color: #ff0000;
+
+    margin-bottom: 5px;
+}
+
+.payment-notice p {
+
+    margin: 0;
+
+    color: #aaa;
+
+    font-size: 13px;
+
+    line-height: 1.8;
+}
+
+@keyframes noticePulse {
+
+    0%,100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.15);
+    }
+}
+
+
+/* =========================================================
+   SUBMIT BUTTON
+========================================================= */
+
+.submit-btn {
+
+    position: relative;
+
+    width: 100%;
+
+    border: 0;
+
+    padding: 17px;
+
+    margin-top: 25px;
+
+    border-radius: 13px;
+
+    background: #ff0000;
+
+    color: white;
+
+    font-size: 17px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    overflow: hidden;
+
+    transition: .3s ease;
+
+    box-shadow:
+        0 0 15px rgba(255,0,0,.20);
+}
+
+.submit-btn::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+
+    left: -150%;
+
+    width: 70%;
+
+    height: 100%;
+
+    background: linear-gradient(
+        100deg,
+        transparent,
+        rgba(255,255,255,.65),
+        transparent
+    );
+
+    transform: skewX(-25deg);
+
+    animation:
+        submitShine 2.5s linear infinite;
+}
+
+@keyframes submitShine {
+
+    0% {
+        left: -150%;
+    }
+
+    100% {
+        left: 150%;
+    }
+}
+
+.submit-btn:hover {
+
+    transform:
+        translateY(-4px)
+        scale(1.02);
+
+    box-shadow:
+        0 10px 35px rgba(255,0,0,.45),
+        0 0 30px rgba(255,0,0,.25);
+}
+
+.submit-btn:active {
+
+    transform: scale(.97);
+}
+
+
+/* =========================================================
+   BACK BUTTON
+========================================================= */
+
+.back-btn {
+
+    display: block;
+
+    text-align: center;
+
+    margin-top: 15px;
+
+    padding: 14px;
+
+    color: white;
+
+    text-decoration: none;
+
+    border: 1px solid rgba(255,255,255,.1);
+
+    border-radius: 12px;
+
+    transition: .3s ease;
+}
+
+.back-btn:hover {
+
+    border-color: #ff0000;
+
+    color: #ff0000;
+}
+
+
+/* =========================================================
+   ERROR
+========================================================= */
+
+.error-message {
+
+    padding: 18px;
+
+    margin-bottom: 25px;
+
+    border-radius: 15px;
+
+    text-align: center;
+
+    background: rgba(255,0,0,.12);
+
+    border: 1px solid rgba(255,0,0,.3);
+
+    color: #fff;
+}
+
+
+/* =========================================================
+   SUCCESS
+========================================================= */
+
+.success-screen {
+
+    text-align: center;
+
+    padding: 35px 10px;
+}
+
+.success-animation {
+
+    width: 115px;
+
+    height: 115px;
+
+    margin: 0 auto 30px;
+
+    position: relative;
+}
+
+.success-circle {
+
+    width: 100%;
+
+    height: 100%;
+
+    border-radius: 50%;
+
+    border: 3px solid rgba(0,214,107,.2);
+
+    border-top-color: #00d66b;
+
+    border-right-color: #00d66b;
+
+    animation:
+        successRotate 1s ease-out forwards;
+
+    box-sizing: border-box;
+}
+
+.success-check {
+
+    position: absolute;
+
+    inset: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    color: #00d66b;
+
+    font-size: 65px;
+
+    font-weight: 900;
+
+    opacity: 0;
+
+    transform:
+        scale(.3)
+        rotate(-20deg);
+
+    animation:
+        successCheck .55s ease-out 1s forwards;
+}
+
+@keyframes successRotate {
+
+    0% {
+        transform:
+            rotate(0deg)
+            scale(.3);
+
+        opacity: 0;
+    }
+
+    60% {
+
+        transform:
+            rotate(300deg)
+            scale(1.08);
+
+        opacity: 1;
+    }
+
+    100% {
+
+        transform:
+            rotate(360deg)
+            scale(1);
+
+        opacity: 1;
+    }
+}
+
+@keyframes successCheck {
+
+    0% {
+
+        opacity: 0;
+
+        transform:
+            scale(.3)
+            rotate(-20deg);
+    }
+
+    70% {
+
+        opacity: 1;
+
+        transform:
+            scale(1.15)
+            rotate(5deg);
+    }
+
+    100% {
+
+        opacity: 1;
+
+        transform:
+            scale(1)
+            rotate(0deg);
+    }
+}
+
+.success-title {
+
+    color: #00d66b;
+
+    font-size: 22px;
+
+    font-weight: bold;
+
+    margin-bottom: 15px;
+}
+
+.success-screen h2 {
+
+    font-size: 30px;
+
+    margin: 10px 0 15px;
+}
+
+.success-screen p {
+
+    color: #aaa;
+
+    line-height: 2;
+}
+
+.success-order {
+
+    margin: 25px auto;
+
+    padding: 18px;
+
+    max-width: 500px;
+
+    border-radius: 17px;
+
+    background: rgba(255,255,255,.03);
+
+    border: 1px solid rgba(255,255,255,.07);
+}
+
+.success-order p {
+    margin: 8px 0;
+}
+
+.success-order strong {
+    color: #fff;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:600px) {
+
+    .checkout-page {
+        padding: 45px 15px;
+    }
+
+    .checkout-box {
+        padding: 25px;
+    }
+
+    .checkout-header h1 {
+        font-size: 32px;
+    }
+
+    .payment-select {
+        grid-template-columns: 1fr;
+    }
+
+    .info-row {
+        flex-direction: column;
+
+        gap: 5px;
+    }
+
+    .success-animation {
+
+        width: 95px;
+
+        height: 95px;
+    }
+
+    .success-check {
+        font-size: 55px;
+    }
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     NAVBAR
+========================================================= -->
+
+<header class="navbar">
+
+    <div class="logo">
+        BOOSTIFY <span>STORE</span>
+    </div>
+
+    <nav>
+
+        <a href="/">
+            الرئيسية
+        </a>
+
+        <a href="/services">
+            الخدمات
+        </a>
+
+        <a href="/subscriptions">
+            الاشتراكات
+        </a>
+
+        <a href="/contact">
+            تواصل معنا
+        </a>
+
+    </nav>
+
+
+    {% if session.get('user_id') %}
+
+        <div class="user-menu">
+
+            <span class="user-name">
+                👤 {{ session.get('name') }}
+            </span>
+
+            <a href="/logout" class="login-btn">
+                تسجيل الخروج
+            </a>
+
+        </div>
+
+    {% else %}
+
+        <a href="/login" class="login-btn">
+            تسجيل الدخول
+        </a>
+
+    {% endif %}
+
+</header>
+
+
+<!-- =========================================================
+     MAIN
+========================================================= -->
+
+<main>
+
+<section class="checkout-page">
+
+
+    <div class="checkout-header">
+
+        <div class="badge">
+            BOOSTIFY STORE
+        </div>
+
+        <h1>
+            إتمام الطلب
+        </h1>
+
+        <p>
+            أكمل البيانات المطلوبة لتنفيذ خدمتك.
+        </p>
+
+    </div>
+
+
+    <div class="checkout-box">
+
+
+    {% if success %}
+
+
+        <!-- =================================================
+             SUCCESS
+        ================================================= -->
+
+        <div class="success-screen">
+
+
+            <div class="success-animation">
+
+                <div class="success-circle"></div>
+
+                <div class="success-check">
+                    ✓
+                </div>
+
+            </div>
+
+
+            <div class="success-title">
+                تم تأكيد التحويل بنجاح ✓
+            </div>
+
+
+            <h2>
+                طلبك وصل للإدارة
+            </h2>
+
+
+            <p>
+
+                تم إرسال بيانات الطلب والتحويل للإدارة بنجاح.
+
+                <br>
+
+                سيتم مراجعة التحويل والتواصل معك للبدء في تنفيذ الخدمة.
+
+            </p>
+
+
+            <div class="success-order">
+
+                <p>
+                    الخدمة:
+                    <strong>
+                        {{ product }}
+                    </strong>
+                </p>
+
+                <p>
+                    الباقة / الكمية:
+                    <strong>
+                        {{ duration }}
+                    </strong>
+                </p>
+
+                <p>
+                    السعر:
+                    <strong>
+                        {{ price }} ج
+                    </strong>
+                </p>
+
+            </div>
+
+
+            <a href="/services" class="back-btn">
+                العودة للخدمات
+            </a>
+
+
+        </div>
+
+
+        <!-- =================================================
+             SUCCESS SOUND
+        ================================================= -->
+
+        <script>
+
+        (function(){
+
+            try {
+
+                const AudioContext =
+                    window.AudioContext ||
+                    window.webkitAudioContext;
+
+                if (!AudioContext) return;
+
+                const ctx = new AudioContext();
+
+                if (ctx.state === "suspended") {
+                    ctx.resume();
+                }
+
+                const now = ctx.currentTime;
+
+                const notes = [
+                    {
+                        freq: 523.25,
+                        time: 0
+                    },
+                    {
+                        freq: 659.25,
+                        time: .12
+                    },
+                    {
+                        freq: 783.99,
+                        time: .24
+                    },
+                    {
+                        freq: 1046.50,
+                        time: .38
+                    }
+                ];
+
+                notes.forEach(function(note){
+
+                    const oscillator =
+                        ctx.createOscillator();
+
+                    const gain =
+                        ctx.createGain();
+
+                    oscillator.type = "sine";
+
+                    oscillator.frequency.value =
+                        note.freq;
+
+                    gain.gain.setValueAtTime(
+                        0,
+                        now + note.time
+                    );
+
+                    gain.gain.linearRampToValueAtTime(
+                        .18,
+                        now + note.time + .03
+                    );
+
+                    gain.gain.exponentialRampToValueAtTime(
+                        .001,
+                        now + note.time + .45
+                    );
+
+                    oscillator.connect(gain);
+
+                    gain.connect(ctx.destination);
+
+                    oscillator.start(
+                        now + note.time
+                    );
+
+                    oscillator.stop(
+                        now + note.time + .5
+                    );
+
+                });
+
+            }
+
+            catch(e) {
+
+                console.log(
+                    "Success sound unavailable"
+                );
+
+            }
+
+        })();
+
+        </script>
+
+
+    {% else %}
+
+
+        {% if error %}
+
+            <div class="error-message">
+                {{ error }}
+            </div>
+
+        {% endif %}
+
+
+        <!-- =================================================
+             ORDER INFORMATION
+        ================================================= -->
+
+        <div class="order-info">
+
+            <div class="info-row">
+
+                <span class="info-label">
+                    الخدمة
+                </span>
+
+                <span class="info-value">
+                    {{ product }}
+                </span>
+
+            </div>
+
+
+            <div class="info-row">
+
+                <span class="info-label">
+                    الباقة / الكمية
+                </span>
+
+                <span class="info-value">
+                    {{ duration }}
+                </span>
+
+            </div>
+
+
+            <div class="info-row">
+
+                <span class="info-label">
+                    السعر
+                </span>
+
+                <span class="info-value price-value">
+                    {{ price }} ج
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             FORM
+        ================================================= -->
+
+        <form
+            action="{{ url_for('send_order') }}"
+            method="POST"
+        >
+
+
+            <input
+                type="hidden"
+                name="product"
+                value="{{ product }}"
+            >
+
+
+            <input
+                type="hidden"
+                name="duration"
+                value="{{ duration }}"
+            >
+
+
+            <input
+                type="hidden"
+                name="price"
+                value="{{ price }}"
+            >
+
+
+            <input
+                type="hidden"
+                name="service"
+                value="{{ service }}"
+            >
+
+
+            <!-- =================================================
+                 SOCIAL MEDIA
+            ================================================= -->
+
+            {% if is_social %}
+
+            <div class="form-section">
+
+                <h2>
+                    🌐 بيانات الحساب
+                </h2>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Username
+                        <span>*</span>
+                    </label>
+
+                    <input
+                        type="text"
+                        name="username"
+                        placeholder="@username"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        رابط الحساب / البوست / الصفحة
+                        <span>*</span>
+                    </label>
+
+                    <input
+                        type="url"
+                        name="account_link"
+                        placeholder="https://instagram.com/..."
+                        required
+                    >
+
+                </div>
+
+            </div>
+
+            {% endif %}
+
+
+            <!-- =================================================
+                 DETAILS
+            ================================================= -->
+
+            <div class="form-section">
+
+                <h2>
+
+                    📝 تفاصيل الطلب
+
+                    <span class="optional">
+                        (اختياري)
+                    </span>
+
+                </h2>
+
+
+                <div class="form-group">
+
+                    <textarea
+                        name="order_details"
+                        placeholder="اكتب أي تفاصيل إضافية تحب توضحها لنا لتنفيذ الطلب..."
+                    ></textarea>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 PAYMENT
+            ================================================= -->
+
+            {% if not is_custom %}
+
+            <div class="payment-section">
+
+
+                <h2>
+                    💳 اختر طريقة الدفع
+                </h2>
+
+
+                <div class="payment-select">
+
+
+                    <!-- INSTAPAY -->
+
+                    <label class="payment-option">
+
+                        <input
+                            type="radio"
+                            name="payment_method"
+                            value="InstaPay"
+                            required
+                        >
+
+                        <div class="payment-card">
+
+
+                            <img
+                                src="{{ url_for('static', filename='images/instapay.png') }}"
+                                alt="InstaPay"
+                            >
+
+
+                            <div class="payment-card-info">
+
+                                <h3>
+                                    InstaPay
+                                </h3>
+
+                                <p>
+                                    01123308826
+                                </p>
+
+                            </div>
+
+
+                            <div class="payment-check">
+                                ✓
+                            </div>
+
+
+                        </div>
+
+                    </label>
+
+
+                    <!-- ETISALAT CASH -->
+
+                    <label class="payment-option">
+
+                        <input
+                            type="radio"
+                            name="payment_method"
+                            value="Etisalat Cash"
+                        >
+
+                        <div class="payment-card">
+
+
+                            <img
+                                src="{{ url_for('static', filename='images/etisalat-cash.png') }}"
+                                alt="Etisalat Cash"
+                            >
+
+
+                            <div class="payment-card-info">
+
+                                <h3>
+                                    Etisalat Cash
+                                </h3>
+
+                                <p>
+                                    01123308826
+                                </p>
+
+                            </div>
+
+
+                            <div class="payment-check">
+                                ✓
+                            </div>
+
+
+                        </div>
+
+                    </label>
+
+
+                </div>
+
+
+                <!-- رقم الهاتف -->
+
+                <div class="form-group payment-input">
+
+                    <label>
+                        📱 رقم الهاتف المحول منه
+                        <span>*</span>
+                    </label>
+
+                    <input
+                        type="tel"
+                        name="transaction_phone"
+                        placeholder="مثال: 01012345678"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- المبلغ -->
+
+                <div class="form-group payment-input">
+
+                    <label>
+                        💰 المبلغ المحول
+                        <span>*</span>
+                    </label>
+
+                    <input
+                        type="number"
+                        name="paid_amount"
+                        placeholder="اكتب المبلغ الذي قمت بتحويله"
+                        min="1"
+                        step="0.01"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- تنبيه -->
+
+                <div class="payment-notice">
+
+                    <div class="payment-notice-icon">
+                        ⚡
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            بعد إتمام التحويل
+                        </strong>
+
+                        <p>
+
+                            اختار طريقة الدفع واكتب رقم الهاتف
+                            الذي تم التحويل منه والمبلغ المحول،
+                            ثم اضغط على زر "تم التحويل".
+
+                            <br>
+
+                            سيتم إرسال إشعار فوري للإدارة لمراجعة عملية الدفع.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+            {% endif %}
+
+
+            <!-- =================================================
+                 SUBMIT
+            ================================================= -->
+
+            <button
+                type="submit"
+                class="submit-btn"
+            >
+
+                {% if is_custom %}
+
+                    🚀 إرسال طلب الخدمة
+
+                {% else %}
+
+                    💳 تم التحويل — إرسال الطلب
+
+                {% endif %}
+
+            </button>
+
+
+        </form>
+
+
+        <a
+            href="/services"
+            class="back-btn"
+        >
+            العودة للخدمات
+        </a>
+
+
+    {% endif %}
+
+
+    </div>
+
+</section>
+
+</main>
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer>
+
+    <div class="footer-logo">
+        BOOSTIFY <span>STORE</span>
+    </div>
+
+    <p>
+        © 2026 BOOSTIFY STORE — جميع الحقوق محفوظة.
+    </p>
+
+</footer>
+
+
+</body>
+
+</html>

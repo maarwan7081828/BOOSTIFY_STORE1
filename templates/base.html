@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}BOOSTIFY STORE{% endblock %}</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <!-- =========================================
+         BOOSTIFY NAVBAR
+    ========================================= -->
+
+    <header class="navbar">
+
+        <!-- Logo -->
+        <a href="{{ url_for('home') }}" class="logo">
+            BOOSTIFY <span>STORE</span>
+        </a>
+
+        <!-- Navigation -->
+        <nav>
+
+            <a href="{{ url_for('home') }}">
+                الرئيسية
+            </a>
+
+            <a href="{{ url_for('services') }}">
+                الخدمات
+            </a>
+
+            <a href="{{ url_for('subscriptions') }}">
+                الاشتراكات
+            </a>
+
+            <a href="{{ url_for('contact') }}">
+                تواصل معنا
+            </a>
+
+        </nav>
+
+        <!-- Login -->
+        <a href="{{ url_for('login') }}" class="login-btn">
+            تسجيل الدخول
+        </a>
+
+    </header>
+
+
+    <!-- =========================================
+         PAGE CONTENT
+    ========================================= -->
+
+    <main>
+
+        {% block content %}
+        {% endblock %}
+
+    </main>
+
+
+</body>
+
+</html>

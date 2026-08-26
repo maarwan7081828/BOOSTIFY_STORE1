@@ -1,0 +1,1489 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>{{ service_name }} | BOOSTIFY STORE</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+
+        .service-page {
+            max-width: 1250px;
+            margin: auto;
+            padding: 70px 20px;
+        }
+
+        .service-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .service-header .badge {
+            display: inline-block;
+            color: #ff0000;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .service-header h1 {
+            font-size: 42px;
+            margin: 15px 0;
+        }
+
+        .service-header p {
+            color: #999;
+            line-height: 1.8;
+        }
+
+        .notice {
+            margin: 0 auto 35px;
+            max-width: 850px;
+            padding: 18px;
+            border-radius: 15px;
+            text-align: center;
+            color: #aaa;
+            background: rgba(255,255,255,.03);
+            border: 1px solid rgba(255,255,255,.07);
+            line-height: 1.8;
+        }
+
+        .category-title {
+            margin: 50px 0 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255,255,255,.08);
+        }
+
+        .category-title h2 {
+            margin: 0;
+            font-size: 27px;
+        }
+
+        .category-title span {
+            color: #ff0000;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .packages {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+        }
+
+        .package {
+            padding: 30px;
+            border-radius: 22px;
+            background: rgba(255,255,255,.04);
+            border: 1px solid rgba(255,255,255,.08);
+            text-align: center;
+            transition: .3s ease;
+        }
+
+        .package:hover {
+            transform: translateY(-7px);
+            border-color: rgba(255,0,0,.45);
+            box-shadow: 0 15px 45px rgba(255,0,0,.12);
+        }
+
+        .package h2 {
+            font-size: 21px;
+            margin-bottom: 12px;
+        }
+
+        .quantity {
+            color: #aaa;
+            margin: 10px 0;
+            line-height: 1.7;
+            min-height: 30px;
+        }
+
+        .price {
+            font-size: 30px;
+            font-weight: 800;
+            color: #ff0000;
+            margin: 20px 0;
+        }
+
+        .order-form {
+            margin-top: 15px;
+        }
+
+        .order-btn {
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
+            padding: 14px 20px;
+            background: #ff0000;
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+            transition: .3s;
+            font-size: 16px;
+        }
+
+        .order-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255,0,0,.25);
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 35px;
+            padding: 13px 25px;
+            border-radius: 12px;
+            color: #fff;
+            text-decoration: none;
+            border: 1px solid rgba(255,255,255,.12);
+            background: rgba(255,255,255,.04);
+            transition: .3s;
+        }
+
+        .back-btn:hover {
+            border-color: rgba(255,0,0,.45);
+        }
+
+        @media(max-width: 900px) {
+
+            .packages {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+        }
+
+        @media(max-width: 600px) {
+
+            .service-page {
+                padding: 50px 15px;
+            }
+
+            .packages {
+                grid-template-columns: 1fr;
+            }
+
+            .service-header h1 {
+                font-size: 32px;
+            }
+
+            .package {
+                padding: 25px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header class="navbar">
+
+    <div class="logo">
+        BOOSTIFY <span>STORE</span>
+    </div>
+
+
+    <nav>
+
+        <a href="/">
+            الرئيسية
+        </a>
+
+        <a href="/services">
+            الخدمات
+        </a>
+
+        <a href="/subscriptions">
+            الاشتراكات
+        </a>
+
+        <a href="/contact">
+            تواصل معنا
+        </a>
+
+    </nav>
+
+
+    {% if session.get('user_id') %}
+
+        <div class="user-menu">
+
+            <span class="user-name">
+                👤 {{ session.get('name') }}
+            </span>
+
+            <a href="/logout"
+               class="login-btn">
+                تسجيل الخروج
+            </a>
+
+        </div>
+
+    {% else %}
+
+        <a href="/login"
+           class="login-btn">
+            تسجيل الدخول
+        </a>
+
+    {% endif %}
+
+</header>
+
+
+<main>
+
+<section class="service-page">
+
+
+    <div class="service-header">
+
+        <div class="badge">
+            BOOSTIFY STORE
+        </div>
+
+        <h1>
+            {{ service_name }}
+        </h1>
+
+        <p>
+            اختار الباقة المناسبة ليك وابدأ طلبك بسهولة.
+        </p>
+
+    </div>
+
+
+
+    <!-- ================================================= -->
+    <!-- FOLLOWERS -->
+    <!-- ================================================= -->
+
+    {% if service_slug == "followers" %}
+
+        <div class="notice">
+
+            📱 خدمات زيادة المتابعين
+
+            <br>
+
+            اختار المنصة والباقة المناسبة ليك.
+
+        </div>
+
+
+        <!-- INSTAGRAM -->
+
+        <div class="category-title">
+
+            <span>
+                01 — INSTAGRAM
+            </span>
+
+            <h2>
+                📸 Instagram Followers
+            </h2>
+
+        </div>
+
+
+        <div class="packages">
+
+            {% set instagram_followers = [
+
+                ("1,000 متابع مصري", "390"),
+                ("2,000 متابع مصري", "690"),
+                ("5,000 متابع مصري", "1,700"),
+                ("10,000 متابع مصري", "3,650")
+
+            ] %}
+
+
+            {% for quantity, price in instagram_followers %}
+
+            <div class="package">
+
+                <h2>
+                    📸 Instagram Followers
+                </h2>
+
+                <div class="quantity">
+                    {{ quantity }}
+                </div>
+
+                <div class="price">
+                    {{ price }} EGP
+                </div>
+
+                <a
+                    class="order-btn"
+                    href="{{ url_for(
+                        'checkout',
+                        product='Instagram Followers',
+                        duration=quantity,
+                        price=price
+                    ) }}"
+                >
+                    طلب الخدمة
+                </a>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+
+        <!-- FACEBOOK -->
+
+        <div class="category-title">
+
+            <span>
+                02 — FACEBOOK
+            </span>
+
+            <h2>
+                🔵 Facebook Followers
+            </h2>
+
+        </div>
+
+
+        <div class="packages">
+
+            {% set facebook_followers = [
+
+                ("2,000 متابع أجنبي", "95"),
+                ("5,000 متابع أجنبي", "179"),
+                ("10,000 متابع أجنبي", "270"),
+                ("20,000 متابع أجنبي", "480"),
+                ("50,000 متابع أجنبي", "980"),
+                ("100,000 متابع أجنبي", "3,500")
+
+            ] %}
+
+
+            {% for quantity, price in facebook_followers %}
+
+            <div class="package">
+
+                <h2>
+                    🔵 Facebook Followers
+                </h2>
+
+                <div class="quantity">
+                    {{ quantity }}
+                </div>
+
+                <div class="price">
+                    {{ price }} EGP
+                </div>
+
+                <a
+                    class="order-btn"
+                    href="{{ url_for(
+                        'checkout',
+                        product='Facebook Followers',
+                        duration=quantity,
+                        price=price
+                    ) }}"
+                >
+                    طلب الخدمة
+                </a>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+
+
+    <!-- ================================================= -->
+    <!-- LIKES -->
+    <!-- ================================================= -->
+
+    {% elif service_slug == "likes" %}
+
+        <div class="notice">
+
+            ❤️ Instagram Likes
+
+            <br>
+
+            Likes أجانب — اختار الكمية المناسبة.
+
+        </div>
+
+
+        <div class="packages">
+
+            {% set likes = [
+
+                ("1,000", "21"),
+                ("1,500", "35"),
+                ("2,000", "50"),
+                ("2,500", "65"),
+                ("5,000", "150"),
+                ("10,000", "350"),
+                ("25,000", "950"),
+                ("50,000", "1,950"),
+                ("100,000", "3,950"),
+                ("250,000", "9,500"),
+                ("500,000", "18,500"),
+                ("1,000,000", "35,000")
+
+            ] %}
+
+
+            {% for quantity, price in likes %}
+
+            <div class="package">
+
+                <h2>
+                    ❤️ Instagram Likes
+                </h2>
+
+                <div class="quantity">
+                    {{ quantity }} لايك — أجانب
+                </div>
+
+                <div class="price">
+                    {{ price }} EGP
+                </div>
+
+                <a
+                    class="order-btn"
+                    href="{{ url_for(
+                        'checkout',
+                        product='Instagram Likes',
+                        duration=quantity ~ ' لايك',
+                        price=price
+                    ) }}"
+                >
+                    طلب الخدمة
+                </a>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+
+
+    <!-- ================================================= -->
+    <!-- VIEWS -->
+    <!-- ================================================= -->
+
+    {% elif service_slug == "views" %}
+
+        <div class="notice">
+
+            👁️ Instagram Views
+
+            <br>
+
+            بدون ضمان — اختار الكمية المناسبة.
+
+        </div>
+
+
+        <div class="packages">
+
+            {% set views = [
+
+                ("100", "10"),
+                ("200", "15"),
+                ("300", "20"),
+                ("400", "25"),
+                ("500", "30"),
+                ("600", "35"),
+                ("700", "38"),
+                ("800", "41"),
+                ("900", "43"),
+                ("1,000", "45"),
+                ("2,000", "75"),
+                ("5,000", "150"),
+                ("10,000", "275"),
+                ("25,000", "550"),
+                ("50,000", "950"),
+                ("100,000", "1,650"),
+                ("250,000", "3,500"),
+                ("500,000", "6,000"),
+                ("1,000,000", "10,500"),
+                ("1,500,000", "14,500")
+
+            ] %}
+
+
+            {% for quantity, price in views %}
+
+            <div class="package">
+
+                <h2>
+                    👁️ Instagram Views
+                </h2>
+
+                <div class="quantity">
+                    {{ quantity }} مشاهدة
+                </div>
+
+                <div class="price">
+                    {{ price }} EGP
+                </div>
+
+                <a
+                    class="order-btn"
+                    href="{{ url_for(
+                        'checkout',
+                        product='Instagram Views',
+                        duration=quantity ~ ' مشاهدة',
+                        price=price
+                    ) }}"
+                >
+                    طلب الخدمة
+                </a>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+
+
+    <!-- ================================================= -->
+    <!-- GRAPHIC DESIGN -->
+    <!-- ================================================= -->
+
+    {% elif service_slug == "graphic-design" %}
+
+
+        <div class="notice">
+
+            🎨 Graphic Design & Website Design
+
+            <br>
+
+            اختار الخدمة والباقـة المناسبة ليك.
+
+        </div>
+
+
+
+        <!-- 01 LOGO DESIGN -->
+
+        <div class="category-title">
+
+            <span>
+                01 — GRAPHIC DESIGN
+            </span>
+
+            <h2>
+                🎨 Logo Design
+            </h2>
+
+        </div>
+
+
+        <div class="packages">
+
+            {% set logo = [
+
+                ("Basic Logo", "500"),
+                ("Standard Logo", "1,000"),
+                ("Premium Logo", "1,500"),
+                ("Professional Logo", "2,500")
+
+            ] %}
+
+
+            {% for name, price in logo %}
+
+            <div class="package">
+
+                <h2>
+                    {{ name }}
+                </h2>
+
+                <div class="quantity">
+                    تصميم لوجو احترافي
+                </div>
+
+                <div class="price">
+                    {{ price }} EGP
+                </div>
+
+                <a
+                    class="order-btn"
+                    href="{{ url_for(
+                        'checkout',
+                        product='Logo Design — ' ~ name,
+                        duration=name,
+                        price=price
+                    ) }}"
+                >
+                    طلب الخدمة
+                </a>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+
+
+        <!-- 02 BRAND IDENTITY -->
+
+        <div class="category-title">
+
+            <span>
+                02 — BRANDING
+            </span>
+
+            <h2>
+                Brand Identity
+            </h2>
+
+        </div>
+
+
+        <div class="packages">
+
+            {% set branding = [
+
+                ("Basic Brand Identity", "2,500"),
+                ("Standard Brand Identity", "4,500"),
+                ("Premium Brand Identity", "7,000"),
+                ("Complete Brand Identity", "10,000")
+
+            ] %}
+
+
+            {% for name, price in branding %}
+
+            <div class="package">
+
+                <h2>
+                    {{ name }}
+                </h2>
+
+                <div class="quantity">
+                    هوية بصرية متكاملة حسب الباقة
+                </div>
+
+                <div class="price">
+                    {{ price }} EGP
+                </div>
+
+                <a
+                    class="order-btn"
+                    href="{{ url_for(
+                        'checkout',
+                        product='Brand Identity — ' ~ name,
+                        duration=name,
+                        price=price
+                    ) }}"
+                >
+                    طلب الخدمة
+                </a>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+
+
+        <!-- 03 SOCIAL MEDIA DESIGNS -->
+
+        <div class="category-title">
+
+            <span>
+                03 — SOCIAL MEDIA
+            </span>
+
+            <h2>
+                Social Media Designs
+            </h2>
+
+        </div>
+
+
+        <div class="packages">
+
+            {% set social_designs = [
+
+                ("Basic", "5 Designs", "799"),
+                ("Standard", "10 Designs", "1,400"),
+                ("Premium", "20 Designs", "2,500"),
+                ("Monthly Package", "30 Designs", "3,500")
+
+            ] %}
+
+
+            {% for name, quantity, price in social_designs %}
+
+            <div class="package">
+
+                <h2>
+                    {{ name }}
+                </h2>
+
+                <div class="quantity">
+                    {{ quantity }}
+                </div>
+
+                <div class="price">
+                    {{ price }} EGP
+                </div>
+
+                <a
+                    class="order-btn"
+                    href="{{ url_for(
+                        'checkout',
+                        product='Social Media Designs — ' ~ name,
+                        duration=quantity,
+                        price=price
+                    ) }}"
+                >
+                    طلب الخدمة
+                </a>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+
+
+        <!-- 04 BUSINESS CARDS -->
+
+        <div class="category-title">
+
+            <span>
+                04 — PRINT DESIGN
+            </span>
+
+            <h2>
+                Business Cards
+            </h2>
+
+        </div>
+
+
+        <div class="packages">
+
+            {% set cards = [
+
+                ("Basic", "399"),
+                ("Standard", "499"),
+                ("Premium", "799")
+
+            ] %}
+
+
+            {% for name, price in cards %}
+
+            <div class="package">
+
+                <h2>
+                    {{ name }} Business Card
+                </h2>
+
+                <div class="quantity">
+                    تصميم كارت شخصي أو تجاري
+                </div>
+
+                <div class="price">
+                    {{ price }} EGP
+                </div>
+
+                <a
+                    class="order-btn"
+                    href="{{ url_for(
+                        'checkout',
+                        product='Business Cards — ' ~ name,
+                        duration=name,
+                        price=price
+                    ) }}"
+                >
+                    طلب الخدمة
+                </a>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+
+
+        <!-- 05 FLYERS -->
+
+        <div class="category-title">
+
+            <span>
+                05 — PRINT DESIGN
+            </span>
+
+            <h2>
+                Flyers
+            </h2>
+
+        </div>
+
+
+        <div class="packages">
+
+            {% set flyers = [
+
+                ("Basic", "599"),
+                ("Standard", "699"),
+                ("Premium", "999")
+
+            ] %}
+
+
+            {% for name, price in flyers %}
+
+            <div class="package">
+
+                <h2>
+                    {{ name }} Flyer
+                </h2>
+
+                <div class="quantity">
+                    تصميم Flyer احترافي
+                </div>
+
+                <div class="price">
+                    {{ price }} EGP
+                </div>
+
+                <a
+                    class="order-btn"
+                    href="{{ url_for(
+                        'checkout',
+                        product='Flyers — ' ~ name,
+                        duration=name,
+                        price=price
+                    ) }}"
+                >
+                    طلب الخدمة
+                </a>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+
+
+        <!-- 06 POSTERS -->
+
+        <div class="category-title">
+
+            <span>
+                06 — PRINT DESIGN
+            </span>
+
+            <h2>
+                Posters
+            </h2>
+
+        </div>
+
+
+        <div class="packages">
+
+            {% set posters = [
+
+                ("Basic", "400"),
+                ("Standard", "750"),
+                ("Premium", "1,000")
+
+            ] %}
+
+
+            {% for name, price in posters %}
+
+            <div class="package">
+
+                <h2>
+                    {{ name }} Poster
+                </h2>
+
+                <div class="quantity">
+                    تصميم بوستر احترافي
+                </div>
+
+                <div class="price">
+                    {{ price }} EGP
+                </div>
+
+                <a
+                    class="order-btn"
+                    href="{{ url_for(
+                        'checkout',
+                        product='Posters — ' ~ name,
+                        duration=name,
+                        price=price
+                    ) }}"
+                >
+                    طلب الخدمة
+                </a>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+
+
+        <!-- 07 BANNERS -->
+
+        <div class="category-title">
+
+            <span>
+                07 — ADVERTISING DESIGN
+            </span>
+
+            <h2>
+                Banners
+            </h2>
+
+        </div>
+
+
+        <div class="packages">
+
+            {% set banners = [
+
+                ("Basic", "600"),
+                ("Standard", "750"),
+                ("Premium", "900")
+
+            ] %}
+
+
+            {% for name, price in banners %}
+
+            <div class="package">
+
+                <h2>
+                    {{ name }} Banner
+                </h2>
+
+                <div class="quantity">
+                    تصميم Banner احترافي
+                </div>
+
+                <div class="price">
+                    {{ price }} EGP
+                </div>
+
+                <a
+                    class="order-btn"
+                    href="{{ url_for(
+                        'checkout',
+                        product='Banners — ' ~ name,
+                        duration=name,
+                        price=price
+                    ) }}"
+                >
+                    طلب الخدمة
+                </a>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+
+
+        <!-- 08 PACKAGING -->
+
+        <div class="category-title">
+
+            <span>
+                08 — BRAND DESIGN
+            </span>
+
+            <h2>
+                Packaging Design
+            </h2>
+
+        </div>
+
+
+        <div class="packages">
+
+            {% set packaging = [
+
+                ("Basic", "1,000"),
+                ("Standard", "2,000"),
+                ("Premium", "3,500"),
+                ("Complete Packaging", "7,450")
+
+            ] %}
+
+
+            {% for name, price in packaging %}
+
+            <div class="package">
+
+                <h2>
+                    {{ name }}
+                </h2>
+
+                <div class="quantity">
+                    تصميم Packaging احترافي
+                </div>
+
+                <div class="price">
+                    {{ price }} EGP
+                </div>
+
+                <a
+                    class="order-btn"
+                    href="{{ url_for(
+                        'checkout',
+                        product='Packaging Design — ' ~ name,
+                        duration=name,
+                        price=price
+                    ) }}"
+                >
+                    طلب الخدمة
+                </a>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+
+
+        <!-- 09 MENU -->
+
+        <div class="category-title">
+
+            <span>
+                09 — DESIGN
+            </span>
+
+            <h2>
+                Menu Design
+            </h2>
+
+        </div>
+
+
+        <div class="packages">
+
+            {% set menus = [
+
+                ("Basic", "500"),
+                ("Standard", "900"),
+                ("Premium", "1,500"),
+                ("Complete Menu", "2,499")
+
+            ] %}
+
+
+            {% for name, price in menus %}
+
+            <div class="package">
+
+                <h2>
+                    {{ name }}
+                </h2>
+
+                <div class="quantity">
+                    تصميم Menu احترافي
+                </div>
+
+                <div class="price">
+                    {{ price }} EGP
+                </div>
+
+                <a
+                    class="order-btn"
+                    href="{{ url_for(
+                        'checkout',
+                        product='Menu Design — ' ~ name,
+                        duration=name,
+                        price=price
+                    ) }}"
+                >
+                    طلب الخدمة
+                </a>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+
+
+        <!-- 10 PRESENTATION -->
+
+        <div class="category-title">
+
+            <span>
+                10 — PRESENTATION
+            </span>
+
+            <h2>
+                Presentation Design
+            </h2>
+
+        </div>
+
+
+        <div class="packages">
+
+            {% set presentations = [
+
+                ("Basic", "500"),
+                ("Standard", "1,000"),
+                ("Premium", "1,800"),
+                ("Professional", "3,000")
+
+            ] %}
+
+
+            {% for name, price in presentations %}
+
+            <div class="package">
+
+                <h2>
+                    {{ name }}
+                </h2>
+
+                <div class="quantity">
+                    تصميم Presentation احترافي
+                </div>
+
+                <div class="price">
+                    {{ price }} EGP
+                </div>
+
+                <a
+                    class="order-btn"
+                    href="{{ url_for(
+                        'checkout',
+                        product='Presentation Design — ' ~ name,
+                        duration=name,
+                        price=price
+                    ) }}"
+                >
+                    طلب الخدمة
+                </a>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+
+
+        <!-- 11 BROCHURE -->
+
+        <div class="category-title">
+
+            <span>
+                11 — PRINT DESIGN
+            </span>
+
+            <h2>
+                Brochure Design
+            </h2>
+
+        </div>
+
+
+        <div class="packages">
+
+            {% set brochures = [
+
+                ("Basic", "600"),
+                ("Standard", "1,000"),
+                ("Premium", "1,500"),
+                ("Professional", "2,500")
+
+            ] %}
+
+
+            {% for name, price in brochures %}
+
+            <div class="package">
+
+                <h2>
+                    {{ name }}
+                </h2>
+
+                <div class="quantity">
+                    تصميم Brochure احترافي
+                </div>
+
+                <div class="price">
+                    {{ price }} EGP
+                </div>
+
+                <a
+                    class="order-btn"
+                    href="{{ url_for(
+                        'checkout',
+                        product='Brochure Design — ' ~ name,
+                        duration=name,
+                        price=price
+                    ) }}"
+                >
+                    طلب الخدمة
+                </a>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+
+
+        <!-- 12 WEBSITE -->
+
+        <div class="category-title">
+
+            <span>
+                12 — WEB DESIGN
+            </span>
+
+            <h2>
+                Website Design
+            </h2>
+
+        </div>
+
+
+        <div class="packages">
+
+            {% set websites = [
+
+                ("Landing Page", "2,499"),
+                ("Basic Website", "4,999"),
+                ("Business Website", "7,999"),
+                ("Professional Website", "19,999"),
+                ("E-Commerce Website", "59,999")
+
+            ] %}
+
+
+            {% for name, price in websites %}
+
+            <div class="package">
+
+                <h2>
+                    {{ name }}
+                </h2>
+
+                <div class="quantity">
+                    تصميم وتطوير موقع احترافي
+                </div>
+
+                <div class="price">
+                    {{ price }} EGP
+                </div>
+
+                <a
+                    class="order-btn"
+                    href="{{ url_for(
+                        'checkout',
+                        product='Website Design — ' ~ name,
+                        duration=name,
+                        price=price
+                    ) }}"
+                >
+                    طلب الخدمة
+                </a>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+
+
+    <!-- ================================================= -->
+    <!-- PAID ADS -->
+    <!-- ================================================= -->
+
+    {% elif service_slug == "paid-ads" %}
+
+        <div class="notice">
+
+            📢 خدمات الإعلانات الممولة
+
+            <br>
+
+            الخدمات دي حسب احتياجات الحملة والميزانية.
+
+        </div>
+
+
+        <div class="packages">
+
+            {% for item in [
+
+                "إدارة الحملات الإعلانية",
+                "إعداد الجمهور والاستهداف",
+                "إعداد الحملة",
+                "كتابة الإعلان",
+                "تصميم الـ Creative",
+                "متابعة وتحسين الحملة",
+                "تقارير الأداء"
+
+            ] %}
+
+            <div class="package">
+
+                <h2>
+                    📢 {{ item }}
+                </h2>
+
+                <div class="quantity">
+                    خدمة احترافية حسب حجم الحملة.
+                </div>
+
+                <div class="price">
+                    حسب الطلب
+                </div>
+
+                <a
+                    class="order-btn"
+                    href="{{ url_for(
+                        'checkout',
+                        product=item,
+                        duration='حسب الطلب',
+                        price='حسب الطلب'
+                    ) }}"
+                >
+                    طلب الخدمة
+                </a>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+
+
+    <!-- ================================================= -->
+    <!-- SOCIAL MEDIA MANAGEMENT -->
+    <!-- ================================================= -->
+
+    {% elif service_slug == "social-management" %}
+
+        <div class="notice">
+
+            📱 إدارة صفحات السوشيال ميديا
+
+            <br>
+
+            صناعة المحتوى وتنظيم النشر وإدارة الحسابات حسب احتياجات البراند.
+
+        </div>
+
+
+        <div class="packages">
+
+            <div class="package">
+
+                <h2>
+                    📱 Social Media Management
+                </h2>
+
+                <div class="quantity">
+                    إدارة كاملة حسب احتياجات البراند.
+                </div>
+
+                <div class="price">
+                    حسب الطلب
+                </div>
+
+                <a
+                    class="order-btn"
+                    href="{{ url_for(
+                        'checkout',
+                        product='Social Media Management',
+                        duration='حسب الطلب',
+                        price='حسب الطلب'
+                    ) }}"
+                >
+                    طلب الخدمة
+                </a>
+
+            </div>
+
+        </div>
+
+    {% endif %}
+
+
+    <div style="text-align:center;">
+
+        <a href="/services"
+           class="back-btn">
+
+            ← العودة إلى الخدمات
+
+        </a>
+
+    </div>
+
+
+</section>
+
+</main>
+
+
+<footer>
+
+    <div class="footer-logo">
+        BOOSTIFY <span>STORE</span>
+    </div>
+
+    <p>
+        © 2026 BOOSTIFY STORE — جميع الحقوق محفوظة.
+    </p>
+
+</footer>
+
+
+</body>
+
+</html>

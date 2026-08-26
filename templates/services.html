@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>الخدمات | BOOSTIFY STORE</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+
+        .services-page {
+            max-width: 1200px;
+            margin: auto;
+            padding: 80px 20px;
+        }
+
+        .services-header {
+            text-align: center;
+            margin-bottom: 55px;
+        }
+
+        .services-header .badge {
+            color: #ff0000;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .services-header h1 {
+            font-size: 45px;
+            margin: 15px 0;
+        }
+
+        .services-header p {
+            color: #999;
+            line-height: 1.9;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        .service-card {
+            padding: 35px;
+            background: rgba(255,255,255,.04);
+            border: 1px solid rgba(255,255,255,.08);
+            border-radius: 24px;
+            transition: .3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(255,0,0,.45);
+            box-shadow: 0 20px 50px rgba(255,0,0,.10);
+        }
+
+        .service-number {
+            color: #ff0000;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 18px;
+        }
+
+        .service-card h2 {
+            font-size: 28px;
+            margin: 0 0 15px;
+        }
+
+        .service-card p {
+            color: #999;
+            line-height: 1.9;
+            margin-bottom: 25px;
+        }
+
+        .service-list {
+            margin: 0 0 30px;
+            padding: 0;
+            list-style: none;
+        }
+
+        .service-list li {
+            color: #bbb;
+            margin-bottom: 12px;
+            line-height: 1.7;
+        }
+
+        .service-list li::before {
+            content: "✓";
+            color: #ff0000;
+            font-weight: bold;
+            margin-left: 8px;
+        }
+
+        .service-btn {
+            display: inline-block;
+            padding: 13px 25px;
+            background: #ff0000;
+            color: #fff;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: .3s;
+        }
+
+        .service-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255,0,0,.25);
+        }
+
+        .services-bottom {
+            margin-top: 60px;
+            padding: 35px;
+            text-align: center;
+            border-radius: 22px;
+            background: rgba(255,255,255,.03);
+            border: 1px solid rgba(255,255,255,.08);
+        }
+
+        .services-bottom p {
+            color: #999;
+            margin-bottom: 25px;
+        }
+
+        @media(max-width: 700px) {
+
+            .services-page {
+                padding: 50px 15px;
+            }
+
+            .services-header h1 {
+                font-size: 34px;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .service-card {
+                padding: 25px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<header class="navbar">
+
+    <div class="logo">
+        BOOSTIFY <span>STORE</span>
+    </div>
+
+    <nav>
+
+        <a href="/">الرئيسية</a>
+
+        <a href="/services">
+            الخدمات
+        </a>
+
+        <a href="/subscriptions">
+            الاشتراكات
+        </a>
+
+        <a href="/contact">
+            تواصل معنا
+        </a>
+
+    </nav>
+
+    {% if session.get('user_id') %}
+
+        <div class="user-menu">
+
+            <span class="user-name">
+                👤 {{ session.get('name') }}
+            </span>
+
+            <a href="/logout"
+               class="login-btn">
+                تسجيل الخروج
+            </a>
+
+        </div>
+
+    {% else %}
+
+        <a href="/login"
+           class="login-btn">
+            تسجيل الدخول
+        </a>
+
+    {% endif %}
+
+</header>
+
+
+<main>
+
+<section class="services-page">
+
+    <div class="services-header">
+
+        <div class="badge">
+            BOOSTIFY STORE
+        </div>
+
+        <h1>
+            خدماتنا
+        </h1>
+
+        <p>
+            كل الخدمات اللي محتاجها عشان تطور وجودك الرقمي
+            في مكان واحد.
+        </p>
+
+    </div>
+
+
+    <div class="services-grid">
+
+
+        <div class="service-card">
+
+            <div class="service-number">
+                01 — SOCIAL MEDIA
+            </div>
+
+            <h2>
+                Social Media
+            </h2>
+
+            <p>
+                خدمات زيادة المتابعين والمشاهدات والتفاعل
+                لمختلف منصات التواصل الاجتماعي.
+            </p>
+
+            <ul class="service-list">
+
+                <li>Instagram Followers</li>
+                <li>Facebook Followers</li>
+                <li>Instagram Likes</li>
+                <li>Instagram Views</li>
+
+            </ul>
+
+            <a href="/service/followers"
+               class="service-btn">
+
+                اكتشف الخدمات
+
+            </a>
+
+        </div>
+
+
+        <div class="service-card">
+
+            <div class="service-number">
+                02 — GRAPHIC DESIGN
+            </div>
+
+            <h2>
+                Graphic Design
+            </h2>
+
+            <p>
+                تصميمات احترافية تساعد البراند بتاعك
+                يظهر بشكل أقوى وأكثر احترافية.
+            </p>
+
+            <ul class="service-list">
+
+                <li>Logo Design</li>
+                <li>Brand Identity</li>
+                <li>Social Media Designs</li>
+                <li>Posters & Flyers</li>
+                <li>Presentations</li>
+
+            </ul>
+
+            <a href="/service/graphic-design"
+               class="service-btn">
+
+                اكتشف الخدمات
+
+            </a>
+
+        </div>
+
+
+        <div class="service-card">
+
+            <div class="service-number">
+                03 — PAID ADVERTISING
+            </div>
+
+            <h2>
+                Paid Advertising
+            </h2>
+
+            <p>
+                إدارة وتجهيز الحملات الإعلانية للوصول
+                للجمهور المناسب وتحسين النتائج.
+            </p>
+
+            <ul class="service-list">
+
+                <li>إعداد الحملات الإعلانية</li>
+                <li>تحديد الجمهور</li>
+                <li>كتابة الإعلانات</li>
+                <li>تصميم الـ Creative</li>
+                <li>متابعة وتحسين الحملات</li>
+
+            </ul>
+
+            <a href="/service/paid-ads"
+               class="service-btn">
+
+                ابدأ الآن
+
+            </a>
+
+        </div>
+
+
+        <div class="service-card">
+
+            <div class="service-number">
+                04 — SOCIAL MANAGEMENT
+            </div>
+
+            <h2>
+                Social Media Management
+            </h2>
+
+            <p>
+                إدارة صفحات السوشيال ميديا وتنظيم المحتوى
+                والنشر والمتابعة بشكل احترافي.
+            </p>
+
+            <ul class="service-list">
+
+                <li>إدارة الصفحات</li>
+                <li>تنظيم المحتوى</li>
+                <li>جدولة المنشورات</li>
+                <li>صناعة المحتوى</li>
+
+            </ul>
+
+            <a href="/service/social-management"
+               class="service-btn">
+
+                ابدأ الآن
+
+            </a>
+
+        </div>
+
+
+    </div>
+
+
+    <div class="services-bottom">
+
+        <h2>
+            محتاج خدمة معينة؟
+        </h2>
+
+        <p>
+            لو مش لاقي الخدمة اللي محتاجها، تواصل معانا
+            وهنساعدك في اختيار الحل المناسب.
+        </p>
+
+        <a href="/contact"
+           class="service-btn">
+
+            تواصل معنا
+
+        </a>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<footer>
+
+    <div class="footer-logo">
+        BOOSTIFY <span>STORE</span>
+    </div>
+
+    <p>
+        © 2026 BOOSTIFY STORE — جميع الحقوق محفوظة.
+    </p>
+
+</footer>
+
+</body>
+</html>

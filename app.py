@@ -11,7 +11,7 @@ app = Flask(__name__)
 # SETTINGS
 # =========================================================
 
-app.secret_key = "BOOSTIFY_CHANGE_THIS_SECRET_KEY_2026"
+app.secret_key = os.environ.get("SECRET_KEY")
 
 DATABASE = "boostify.db"
 
@@ -19,9 +19,8 @@ DATABASE = "boostify.db"
 # TELEGRAM
 # =========================================================
 
-BOT_TOKEN = "8677209826:AAGVYNAfQaWeRo49QYvrXDM5CKaHJdy2fx4"
-CHAT_ID = "8485994324"
-
+BOT_TOKEN = os.environ.get("BOT_TOKEN")
+CHAT_ID = os.environ.get("CHAT_ID")
 
 def send_telegram_message(message):
     if not BOT_TOKEN:

@@ -1,6 +1,5 @@
 [build]
   functions = "netlify/functions"
-  publish = "static"
 
 [functions]
-  included_files = ["templates/**", "static/**", "app/**", "config/**", "controllers/**", "database/**", "middleware/**"]
+  runtime = "python3.13"

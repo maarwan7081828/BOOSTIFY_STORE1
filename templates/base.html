@@ -4,17 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>{% block title %}BOOSTIFY STORE{% endblock %}</title>
-
-    <link rel="stylesheet"
-          href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 
 <body>
 
-    <header class="navbar">
+    <div class="animated-bg-lines"></div>
 
+    <header class="navbar">
         <a href="{{ url_for('home') }}" class="logo">
             BOOSTIFY <span>STORE</span>
         </a>
@@ -29,19 +27,12 @@
 
         {% if session.get('user_id') %}
             <div class="user-menu">
-                <span class="user-name">
-                    👤 {{ session.get('name') }}
-                </span>
-                <a href="{{ url_for('logout') }}" class="login-btn">
-                    تسجيل الخروج
-                </a>
+                <span class="user-name">👤 {{ session.get('name') }}</span>
+                <a href="{{ url_for('logout') }}" class="login-btn">تسجيل الخروج</a>
             </div>
         {% else %}
-            <a href="{{ url_for('login') }}" class="login-btn">
-                تسجيل الدخول
-            </a>
+            <a href="{{ url_for('login') }}" class="login-btn">تسجيل الدخول</a>
         {% endif %}
-
     </header>
 
     <main>
@@ -50,5 +41,4 @@
     </main>
 
 </body>
-
 </html>

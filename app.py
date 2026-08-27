@@ -46,20 +46,17 @@ def send_telegram_message(message):
     url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
 
     try:
-
         response = requests.post(
             url,
             data={
                 "chat_id": CHAT_ID,
                 "text": message
             },
-            timeout=10
+            timeout=15
         )
 
-        print("================================")
         print("TELEGRAM STATUS:", response.status_code)
         print("TELEGRAM RESPONSE:", response.text)
-        print("================================")
 
         if response.ok:
             return response.json().get("ok", False)
@@ -67,9 +64,7 @@ def send_telegram_message(message):
         return False
 
     except requests.RequestException as e:
-
         print("Telegram Error:", str(e))
-
         return False
 
 
@@ -950,9 +945,8 @@ init_db()
 
 
 if __name__ == "__main__":
-
     app.run(
-        host="127.0.0.1",
-        port=5000,
-        debug=True
+        host="0.0.0.0",
+        port=int(os.environ.get("PORT", 5000)),
+        debug=False
     )

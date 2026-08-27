@@ -4,20 +4,66 @@
 
 body {
     margin: 0;
-    background: #080808;
+    background: #050505;
     color: #fff;
     font-family: Arial, sans-serif;
     direction: rtl;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
 }
 
-/* ================= NAVBAR (متجاوب مع الكمبيوتر والموبايل) ================= */
+/* ================= خلفية الأنيميشن النيون الحمراء (واضحة وقوية) ================= */
+body::before,
+body::after {
+    content: "";
+    position: fixed;
+    width: 650px;
+    height: 650px;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.55; /* توضيح وزيادة قوة الإضاءة */
+    z-index: -1;
+    pointer-events: none;
+    animation: moveGlow 14s ease-in-out infinite alternate;
+}
+
+body::before {
+    top: -150px;
+    right: -100px;
+    background: radial-gradient(circle, rgba(255, 0, 0, 0.9) 0%, rgba(255, 0, 0, 0.2) 60%, transparent 80%);
+}
+
+body::after {
+    bottom: -150px;
+    left: -100px;
+    background: radial-gradient(circle, rgba(220, 20, 60, 0.8) 0%, rgba(255, 0, 0, 0.2) 60%, transparent 80%);
+    animation-duration: 18s;
+    animation-direction: alternate-reverse;
+}
+
+@keyframes moveGlow {
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+    50% {
+        transform: translate(-120px, 80px) scale(1.15);
+    }
+    100% {
+        transform: translate(80px, 140px) scale(0.9);
+    }
+}
+
+/* ================= NAVBAR ================= */
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 30px;
-    background: rgba(8, 8, 8, 0.95);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 18px 35px;
+    background: rgba(8, 8, 8, 0.75);
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(255, 0, 0, 0.2);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -33,43 +79,46 @@ body {
 
 .logo span {
     color: #ff0000;
+    text-shadow: 0 0 15px rgba(255, 0, 0, 0.8);
 }
 
 .navbar nav {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 22px;
 }
 
 .navbar nav a {
-    color: #ccc;
+    color: #ddd;
     text-decoration: none;
     font-size: 15px;
     font-weight: bold;
     white-space: nowrap;
-    transition: 0.2s;
+    transition: 0.3s;
 }
 
 .navbar nav a:hover {
     color: #ff0000;
+    text-shadow: 0 0 10px rgba(255, 0, 0, 0.6);
 }
 
 .login-btn {
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(255, 0, 0, 0.15);
     color: #fff;
-    padding: 8px 18px;
+    padding: 9px 20px;
     border-radius: 10px;
     text-decoration: none;
     font-size: 14px;
     font-weight: bold;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    transition: 0.2s;
+    border: 1px solid rgba(255, 0, 0, 0.4);
+    transition: 0.3s;
     white-space: nowrap;
 }
 
 .login-btn:hover {
-    border-color: #ff0000;
-    color: #ff0000;
+    background: #ff0000;
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.6);
+    color: #fff;
 }
 
 .user-menu {
@@ -84,10 +133,10 @@ body {
     font-size: 14px;
 }
 
-/* أزرار عامة */
+/* ================= الأزرار الأساسية ================= */
 .primary-btn {
     display: inline-block;
-    padding: 14px 30px;
+    padding: 14px 32px;
     background: #ff0000;
     color: #fff;
     border-radius: 12px;
@@ -95,19 +144,21 @@ body {
     font-weight: bold;
     transition: .3s;
     border: none;
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.4);
 }
 
 .primary-btn:hover {
     transform: translateY(-3px);
-    box-shadow: 0 10px 30px rgba(255,0,0,.25);
+    box-shadow: 0 10px 35px rgba(255, 0, 0, 0.7);
 }
 
 .secondary-btn {
     display: inline-block;
-    padding: 14px 30px;
+    padding: 14px 32px;
     color: #fff;
-    border: 1px solid rgba(255,255,255,.15);
-    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
     border-radius: 12px;
     text-decoration: none;
     font-weight: bold;
@@ -116,10 +167,12 @@ body {
 
 .secondary-btn:hover {
     border-color: #ff0000;
+    background: rgba(255, 0, 0, 0.1);
     transform: translateY(-3px);
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
 }
 
-/* ================= ضبط الموبايل للنافبار ================= */
+/* ================= ضبط الموبايل ================= */
 @media (max-width: 768px) {
     .navbar {
         flex-direction: column;
@@ -146,7 +199,7 @@ body {
     }
 
     .navbar nav a {
-        font-size: 13px;
+        font-size: 13.5px;
         padding: 6px 12px;
         background: rgba(255, 255, 255, 0.05);
         border: 1px solid rgba(255, 255, 255, 0.08);

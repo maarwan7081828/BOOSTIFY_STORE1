@@ -4,7 +4,7 @@
 
 body {
     margin: 0;
-    background: #050505;
+    background: #060606;
     color: #fff;
     font-family: Arial, sans-serif;
     direction: rtl;
@@ -13,57 +13,49 @@ body {
     overflow-x: hidden;
 }
 
-/* ================= خلفية الأنيميشن النيون الحمراء (واضحة وقوية) ================= */
-body::before,
+/* ================= 1. خطوط الحواف وأنيميشن الخلفية ================= */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 2px solid rgba(255, 0, 0, 0.35);
+    box-shadow: inset 0 0 35px rgba(255, 0, 0, 0.3);
+    pointer-events: none;
+    z-index: 999;
+}
+
 body::after {
     content: "";
     position: fixed;
-    width: 650px;
-    height: 650px;
+    top: -20%;
+    right: -10%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(255, 0, 0, 0.35) 0%, rgba(255, 0, 0, 0.05) 60%, transparent 80%);
+    filter: blur(80px);
     border-radius: 50%;
-    filter: blur(100px);
-    opacity: 0.55; /* توضيح وزيادة قوة الإضاءة */
-    z-index: -1;
     pointer-events: none;
-    animation: moveGlow 14s ease-in-out infinite alternate;
+    z-index: -1;
+    animation: floatingMesh 10s ease-in-out infinite alternate;
 }
 
-body::before {
-    top: -150px;
-    right: -100px;
-    background: radial-gradient(circle, rgba(255, 0, 0, 0.9) 0%, rgba(255, 0, 0, 0.2) 60%, transparent 80%);
+@keyframes floatingMesh {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(-100px, 120px) scale(1.2); }
 }
 
-body::after {
-    bottom: -150px;
-    left: -100px;
-    background: radial-gradient(circle, rgba(220, 20, 60, 0.8) 0%, rgba(255, 0, 0, 0.2) 60%, transparent 80%);
-    animation-duration: 18s;
-    animation-direction: alternate-reverse;
-}
-
-@keyframes moveGlow {
-    0% {
-        transform: translate(0, 0) scale(1);
-    }
-    50% {
-        transform: translate(-120px, 80px) scale(1.15);
-    }
-    100% {
-        transform: translate(80px, 140px) scale(0.9);
-    }
-}
-
-/* ================= NAVBAR ================= */
+/* ================= 2. NAVBAR (عادي للكمبيوتر - وقائمة عمودية بالشمال للموبايل) ================= */
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 18px 35px;
-    background: rgba(8, 8, 8, 0.75);
+    padding: 16px 30px;
+    background: rgba(10, 10, 10, 0.85);
     backdrop-filter: blur(15px);
-    border-bottom: 1px solid rgba(255, 0, 0, 0.2);
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+    border-bottom: 1px solid rgba(255, 0, 0, 0.25);
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -79,13 +71,13 @@ body::after {
 
 .logo span {
     color: #ff0000;
-    text-shadow: 0 0 15px rgba(255, 0, 0, 0.8);
+    text-shadow: 0 0 12px rgba(255, 0, 0, 0.8);
 }
 
 .navbar nav {
     display: flex;
     align-items: center;
-    gap: 22px;
+    gap: 20px;
 }
 
 .navbar nav a {
@@ -105,7 +97,7 @@ body::after {
 .login-btn {
     background: rgba(255, 0, 0, 0.15);
     color: #fff;
-    padding: 9px 20px;
+    padding: 8px 18px;
     border-radius: 10px;
     text-decoration: none;
     font-size: 14px;
@@ -117,14 +109,13 @@ body::after {
 
 .login-btn:hover {
     background: #ff0000;
-    box-shadow: 0 0 20px rgba(255, 0, 0, 0.6);
-    color: #fff;
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.6);
 }
 
 .user-menu {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 12px;
 }
 
 .user-name {
@@ -133,32 +124,126 @@ body::after {
     font-size: 14px;
 }
 
-/* ================= الأزرار الأساسية ================= */
-.primary-btn {
+/* ضبط الموبايل: اللوجو يمين والقائمة أزرار تحت بعض على الشمال */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: space-between;
+        padding: 15px;
+    }
+
+    .navbar nav {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        order: 2;
+    }
+
+    .navbar nav a {
+        font-size: 12.5px;
+        padding: 5px 12px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 0, 0, 0.25);
+        border-radius: 8px;
+        width: 100%;
+        text-align: center;
+    }
+
+    .logo {
+        order: 1;
+        font-size: 20px;
+    }
+
+    .login-btn, .user-menu {
+        order: 3;
+        font-size: 12px;
+        padding: 5px 10px;
+    }
+}
+
+/* ================= 3. أنيميشن الدوائر الإحصائية (Stats Circles) ================= */
+.stat-circle-icon {
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    margin: 0 auto 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    background: radial-gradient(circle, rgba(255, 0, 0, 0.2) 0%, rgba(20, 20, 20, 0.8) 100%);
+    border: 2px solid #ff0000;
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+    animation: pulseGlow 2.5s infinite alternate ease-in-out;
+}
+
+@keyframes pulseGlow {
+    0% {
+        transform: scale(0.96);
+        box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+        border-color: rgba(255, 0, 0, 0.6);
+    }
+    100% {
+        transform: scale(1.05);
+        box-shadow: 0 0 25px rgba(255, 0, 0, 0.8);
+        border-color: #ff0000;
+    }
+}
+
+/* ================= 4. خطوط تلف حول الأزرار (Border Glow Animation) ================= */
+.primary-btn, .order-btn, .service-card-btn {
+    position: relative;
     display: inline-block;
-    padding: 14px 32px;
-    background: #ff0000;
+    padding: 13px 28px;
+    background: #111;
     color: #fff;
     border-radius: 12px;
     text-decoration: none;
     font-weight: bold;
-    transition: .3s;
-    border: none;
-    box-shadow: 0 0 20px rgba(255, 0, 0, 0.4);
+    z-index: 1;
+    overflow: hidden;
+    border: 1px solid rgba(255, 0, 0, 0.4);
+    transition: 0.3s;
 }
 
-.primary-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 35px rgba(255, 0, 0, 0.7);
+.primary-btn::before, .order-btn::before, .service-card-btn::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(transparent, transparent, transparent, #ff0000);
+    animation: rotateBorder 3.5s linear infinite;
+    z-index: -2;
+}
+
+.primary-btn::after, .order-btn::after, .service-card-btn::after {
+    content: '';
+    position: absolute;
+    inset: 2px;
+    background: #0d0d0d;
+    border-radius: 10px;
+    z-index: -1;
+}
+
+.primary-btn:hover::after, .order-btn:hover::after {
+    background: #ff0000;
+}
+
+@keyframes rotateBorder {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
 .secondary-btn {
     display: inline-block;
-    padding: 14px 32px;
+    padding: 12px 28px;
     color: #fff;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.03);
     border-radius: 12px;
     text-decoration: none;
     font-weight: bold;
@@ -167,42 +252,5 @@ body::after {
 
 .secondary-btn:hover {
     border-color: #ff0000;
-    background: rgba(255, 0, 0, 0.1);
-    transform: translateY(-3px);
-    box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
-}
-
-/* ================= ضبط الموبايل ================= */
-@media (max-width: 768px) {
-    .navbar {
-        flex-direction: column;
-        gap: 12px;
-        padding: 12px 10px;
-    }
-
-    .navbar nav {
-        width: 100%;
-        overflow-x: auto;
-        white-space: nowrap;
-        justify-content: flex-start;
-        padding-bottom: 6px;
-        gap: 10px;
-        -webkit-overflow-scrolling: touch;
-    }
-
-    .navbar nav::-webkit-scrollbar {
-        display: none;
-    }
-    .navbar nav {
-        -ms-overflow-style: none;
-        scrollbar-width: none;
-    }
-
-    .navbar nav a {
-        font-size: 13.5px;
-        padding: 6px 12px;
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        border-radius: 8px;
-    }
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
 }

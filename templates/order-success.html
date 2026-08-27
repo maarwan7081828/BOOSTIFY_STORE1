@@ -6,25 +6,25 @@
 <main class="success-page-container">
     <div class="success-card-box">
         
-        <div class="success-animation-wrapper">
-            <svg class="animated-checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
-                <circle class="checkmark-circle" cx="26" cy="26" r="23" fill="none"/>
-                <path class="checkmark-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+        <div class="perfect-check-container">
+            <svg class="check-svg" viewBox="0 0 100 100">
+                <circle class="check-circle" cx="50" cy="50" r="44" />
+                <path class="check-mark" d="M30 50 L44 64 L72 36" />
             </svg>
         </div>
 
         <h3 class="success-status-title">تم إرسال الطلب بنجاح</h3>
         <h2 class="success-main-heading">خطوة أخيرة لإثبات التحويل</h2>
         
-        <p class="success-desc">تم إرسال بيانات طلبك للإدارة.</p>
-        <p class="success-subdesc">الآن اضغط على الزر بالأسفل لفتح WhatsApp وإرسال Screenshot لإثبات التحويل.</p>
+        <p class="success-desc">تم إرسال بيانات طلبك للإدارة بنجاح.</p>
+        <p class="success-subdesc">اضغط بالأسفل لفتح WhatsApp وإرسال Screenshot لإثبات التحويل.</p>
 
         <a href="https://wa.me/201123308826" target="_blank" class="whatsapp-send-btn">
             📱 إرسال الإثبات عبر WhatsApp
         </a>
         
         <div style="margin-top: 25px;">
-            <a href="/" class="secondary-btn" style="display: inline-block;">العودة للرئيسية</a>
+            <a href="/" class="secondary-btn">العودة للرئيسية</a>
         </div>
     </div>
 </main>
@@ -42,112 +42,100 @@
         background: rgba(255, 255, 255, 0.035);
         border: 1px solid rgba(255, 255, 255, 0.08);
         border-radius: 24px;
-        padding: 45px 30px;
-        max-width: 580px;
+        padding: 40px 25px;
+        max-width: 550px;
         width: 100%;
         text-align: center;
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+    }
+
+    /* التوسيط الهندسي لعلامة الصح والأنيميشن */
+    .perfect-check-container {
+        width: 96px;
+        height: 96px;
+        margin: 0 auto 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .check-svg {
+        width: 100%;
+        height: 100%;
+        filter: drop-shadow(0 0 14px rgba(0, 255, 136, 0.8));
+    }
+
+    .check-circle {
+        fill: none;
+        stroke: #00ff88;
+        stroke-width: 5;
+        stroke-linecap: round;
+        stroke-dasharray: 280;
+        stroke-dashoffset: 280;
+        animation: drawCircle 0.8s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+    }
+
+    .check-mark {
+        fill: none;
+        stroke: #00ff88;
+        stroke-width: 6;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-dasharray: 70;
+        stroke-dashoffset: 70;
+        animation: drawCheck 0.4s cubic-bezier(0.65, 0, 0.45, 1) 0.65s forwards;
+    }
+
+    @keyframes drawCircle {
+        to { stroke-dashoffset: 0; }
+    }
+
+    @keyframes drawCheck {
+        to { stroke-dashoffset: 0; }
     }
 
     .success-status-title {
         color: #00ff88;
         font-size: 22px;
-        margin: 10px 0;
-        font-weight: bold;
+        margin: 5px 0;
     }
 
     .success-main-heading {
-        font-size: 30px;
-        margin: 10px 0 20px;
+        font-size: 28px;
+        margin: 8px 0 15px;
         color: #fff;
     }
 
     .success-desc {
         color: #ccc;
-        font-size: 16px;
+        font-size: 15px;
         margin: 5px 0;
     }
 
     .success-subdesc {
         color: #888;
         font-size: 14px;
-        line-height: 1.6;
-        margin: 10px 0 30px;
+        margin: 5px 0 25px;
     }
 
     .whatsapp-send-btn {
         display: inline-block;
         width: 100%;
-        max-width: 380px;
+        max-width: 360px;
         background: #25D366;
         color: #fff;
         text-decoration: none;
-        padding: 15px 25px;
+        padding: 14px;
         border-radius: 12px;
-        font-size: 17px;
+        font-size: 16px;
         font-weight: bold;
         transition: .3s;
-        box-shadow: 0 5px 20px rgba(37, 211, 102, 0.25);
+        box-shadow: 0 4px 20px rgba(37, 211, 102, 0.3);
     }
 
     .whatsapp-send-btn:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4);
-    }
-
-    /* أنيميشن الدوران ورسم علامة الصح */
-    .success-animation-wrapper {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin: 0 auto 20px;
-        width: 90px;
-        height: 90px;
-    }
-
-    .animated-checkmark {
-        width: 90px;
-        height: 90px;
-        border-radius: 50%;
-        display: block;
-        stroke-width: 3.5;
-        stroke: #00ff88;
-        stroke-miterlimit: 10;
-        filter: drop-shadow(0 0 12px rgba(0, 255, 136, 0.75));
-        animation: rotatePop 0.8s cubic-bezier(0.65, 0, 0.45, 1) forwards;
-    }
-
-    .checkmark-circle {
-        stroke-dasharray: 166;
-        stroke-dashoffset: 166;
-        stroke-width: 3.5;
-        stroke: #00ff88;
-        fill: none;
-        animation: strokeCircle 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
-    }
-
-    .checkmark-check {
-        transform-origin: 50% 50%;
-        stroke-dasharray: 48;
-        stroke-dashoffset: 48;
-        stroke-width: 4;
-        stroke-linecap: round;
-        stroke-linejoin: round;
-        animation: strokeCheck 0.35s cubic-bezier(0.65, 0, 0.45, 1) 0.55s forwards;
-    }
-
-    @keyframes rotatePop {
-        0% { transform: rotate(-90deg) scale(0.6); opacity: 0; }
-        60% { transform: rotate(10deg) scale(1.08); opacity: 1; }
-        100% { transform: rotate(0deg) scale(1); opacity: 1; }
-    }
-
-    @keyframes strokeCircle {
-        100% { stroke-dashoffset: 0; }
-    }
-
-    @keyframes strokeCheck {
-        100% { stroke-dashoffset: 0; }
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(37, 211, 102, 0.5);
     }
 </style>
 {% endblock %}

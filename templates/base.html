@@ -1,44 +1,136 @@
+```html
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
     <title>{% block title %}BOOSTIFY STORE{% endblock %}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    {% block head %}{% endblock %}
 </head>
 
 <body>
 
+    <!-- =====================================================
+         ANIMATED NEON BACKGROUND
+    ====================================================== -->
+
     <div class="animated-bg-lines"></div>
 
+
+    <!-- =====================================================
+         NAVBAR
+    ====================================================== -->
+
     <header class="navbar">
-        <a href="{{ url_for('home') }}" class="logo">
+
+        <a href="{{ url_for('home') }}"
+           class="logo">
+
             BOOSTIFY <span>STORE</span>
+
         </a>
 
+
         <nav>
-            <a href="{{ url_for('home') }}">الرئيسية</a>
-            <a href="{{ url_for('services') }}">الخدمات</a>
-            <a href="{{ url_for('subscriptions') }}">الاشتراكات</a>
-            <a href="{{ url_for('reviews') }}">آراء العملاء</a>
-            <a href="{{ url_for('contact') }}">تواصل معنا</a>
+
+            <a href="{{ url_for('home') }}">
+                الرئيسية
+            </a>
+
+            <a href="{{ url_for('services') }}">
+                الخدمات
+            </a>
+
+            <a href="{{ url_for('subscriptions') }}">
+                الاشتراكات
+            </a>
+
+            <a href="{{ url_for('reviews') }}">
+                آراء العملاء
+            </a>
+
+            <a href="{{ url_for('contact') }}">
+                تواصل معنا
+            </a>
+
         </nav>
 
+
+        <!-- =================================================
+             USER
+        ================================================== -->
+
         {% if session.get('user_id') %}
+
             <div class="user-menu">
-                <span class="user-name">👤 {{ session.get('name') }}</span>
-                <a href="{{ url_for('logout') }}" class="login-btn">تسجيل الخروج</a>
+
+                <span class="user-name">
+                    {{ session.get('name') }}
+                </span>
+
+                <a href="{{ url_for('logout') }}"
+                   class="login-btn">
+
+                    تسجيل الخروج
+
+                </a>
+
             </div>
+
         {% else %}
-            <a href="{{ url_for('login') }}" class="login-btn">تسجيل الدخول</a>
+
+            <a href="{{ url_for('login') }}"
+               class="login-btn">
+
+                تسجيل الدخول
+
+            </a>
+
         {% endif %}
+
     </header>
 
+
+    <!-- =====================================================
+         MAIN CONTENT
+    ====================================================== -->
+
     <main>
+
         {% block content %}
         {% endblock %}
+
     </main>
 
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer>
+
+        <div class="footer-logo">
+            BOOSTIFY <span>STORE</span>
+        </div>
+
+        <p>
+            © 2026 BOOSTIFY STORE — جميع الحقوق محفوظة.
+        </p>
+
+    </footer>
+
+
+    {% block scripts %}{% endblock %}
+
 </body>
+
 </html>
+```

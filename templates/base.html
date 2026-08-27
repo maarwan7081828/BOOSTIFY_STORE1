@@ -13,43 +13,20 @@
 
 <body>
 
-    <!-- =========================================
-         BOOSTIFY NAVBAR
-    ========================================= -->
-
     <header class="navbar">
 
-        <!-- Logo -->
         <a href="{{ url_for('home') }}" class="logo">
             BOOSTIFY <span>STORE</span>
         </a>
 
-        <!-- Navigation -->
         <nav>
-
-            <a href="{{ url_for('home') }}">
-                الرئيسية
-            </a>
-
-            <a href="{{ url_for('services') }}">
-                الخدمات
-            </a>
-
-            <a href="{{ url_for('subscriptions') }}">
-                الاشتراكات
-            </a>
-
-            <a href="{{ url_for('reviews') }}">
-                آراء العملاء
-            </a>
-
-            <a href="{{ url_for('contact') }}">
-                تواصل معنا
-            </a>
-
+            <a href="{{ url_for('home') }}">الرئيسية</a>
+            <a href="{{ url_for('services') }}">الخدمات</a>
+            <a href="{{ url_for('subscriptions') }}">الاشتراكات</a>
+            <a href="{{ url_for('reviews') }}">آراء العملاء</a>
+            <a href="{{ url_for('contact') }}">تواصل معنا</a>
         </nav>
 
-        <!-- Login / User Profile -->
         {% if session.get('user_id') %}
             <div class="user-menu">
                 <span class="user-name">
@@ -67,61 +44,10 @@
 
     </header>
 
-
-    <!-- =========================================
-         PAGE CONTENT
-    ========================================= -->
-
     <main>
-
         {% block content %}
         {% endblock %}
-
     </main>
-
-    <!-- نافذة الأنيميشن المخفية (Success Checkmark Overlay) -->
-    <div id="success-overlay" class="success-overlay" style="display: none;">
-        <div class="success-modal-content">
-            <div class="success-checkmark">
-                <div class="check-icon">
-                    <span class="icon-line line-tip"></span>
-                    <span class="icon-line line-long"></span>
-                    <div class="icon-circle"></div>
-                    <div class="icon-fix"></div>
-                </div>
-            </div>
-            <p class="success-text">تم إتمام طلبك بنجاح!</p>
-        </div>
-    </div>
-
-    <!-- كود الـ JavaScript لتشغيل الأنيميشن -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const checkoutBtn = document.querySelector('#checkout-btn');
-            const successOverlay = document.querySelector('#success-overlay');
-
-            if (checkoutBtn && successOverlay) {
-                checkoutBtn.addEventListener('click', function(e) {
-                    successOverlay.style.display = 'flex';
-                });
-            }
-        });
-
-        // دالة مساعدة لتشغيل الأنيميشن من أي مكان
-        function showSuccessAnimation() {
-            const overlay = document.getElementById('success-overlay');
-            if (overlay) {
-                overlay.style.display = 'flex';
-            }
-        }
-
-        function hideSuccessAnimation() {
-            const overlay = document.getElementById('success-overlay');
-            if (overlay) {
-                overlay.style.display = 'none';
-            }
-        }
-    </script>
 
 </body>
 

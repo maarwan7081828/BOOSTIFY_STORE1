@@ -1,551 +1,153 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-
-<head>
-
-    <meta charset="UTF-8">
-
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-
-    <title>تم إرسال الطلب | BOOSTIFY STORE</title>
-
-    <link rel="stylesheet"
-          href="{{ url_for('static', filename='css/style.css') }}">
-
-    <style>
-
-        .success-page {
-            min-height: 75vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 60px 20px;
-        }
-
-        .success-box {
-            width: 100%;
-            max-width: 650px;
-            padding: 50px 35px;
-            text-align: center;
-            border-radius: 28px;
-
-            background: rgba(255,255,255,.04);
-
-            border: 1px solid rgba(0,255,120,.18);
-
-            box-shadow:
-                0 0 50px rgba(0,255,120,.08);
-
-            backdrop-filter: blur(15px);
-
-            animation: boxAppear .7s ease forwards;
-        }
-
-        /* CHECK CIRCLE */
-
-        .check-circle {
-            width: 105px;
-            height: 105px;
-
-            margin: 0 auto 30px;
-
-            border-radius: 50%;
-
-            border: 3px solid #22c55e;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            box-shadow:
-                0 0 20px rgba(34,197,94,.35),
-                0 0 60px rgba(34,197,94,.15);
-
-            animation:
-                checkPop .6s cubic-bezier(.17,.67,.3,1.4),
-                checkGlow 2s ease-in-out infinite .6s;
-        }
-
-        .check-mark {
-            width: 42px;
-            height: 23px;
-
-            border-left: 5px solid #22c55e;
-            border-bottom: 5px solid #22c55e;
-
-            transform:
-                rotate(-45deg)
-                scale(0);
-
-            animation:
-                drawCheck .5s ease forwards .45s;
-        }
-
-        /* TITLE */
-
-        .success-title {
-            font-size: 34px;
-            margin: 0 0 15px;
-
-            color: #fff;
-        }
-
-        .success-title span {
-            color: #22c55e;
-        }
-
-        .success-text {
-            color: #aaa;
-            line-height: 1.9;
-            font-size: 16px;
-            margin-bottom: 30px;
-        }
-
-        /* ORDER DETAILS */
-
-        .order-details {
-            text-align: right;
-
-            padding: 22px;
-
-            margin: 25px 0;
-
-            border-radius: 18px;
-
-            background: rgba(0,0,0,.25);
-
-            border: 1px solid rgba(255,255,255,.07);
-        }
-
-        .detail-row {
-            display: flex;
-            justify-content: space-between;
-            gap: 20px;
-
-            padding: 12px 0;
-
-            border-bottom:
-                1px solid rgba(255,255,255,.06);
-        }
-
-        .detail-row:last-child {
-            border-bottom: none;
-        }
-
-        .detail-label {
-            color: #888;
-        }
-
-        .detail-value {
-            color: #fff;
-            font-weight: bold;
-        }
-
-        .price-value {
-            color: #ff0000;
-            font-size: 20px;
-        }
-
-        /* STATUS */
-
-        .waiting-status {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-
-            padding: 12px 18px;
-
-            margin: 10px 0 30px;
-
-            border-radius: 50px;
-
-            background: rgba(255,193,7,.08);
-
-            border: 1px solid rgba(255,193,7,.18);
-
-            color: #ffc107;
-
-            font-weight: bold;
-        }
-
-        .status-dot {
-            width: 9px;
-            height: 9px;
-
-            border-radius: 50%;
-
-            background: #ffc107;
-
-            box-shadow:
-                0 0 12px rgba(255,193,7,.7);
-
-            animation: pulse 1.5s infinite;
-        }
-
-        /* BUTTONS */
-
-        .success-actions {
-            display: flex;
-            gap: 12px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .payment-btn,
-        .back-btn {
-            display: inline-block;
-
-            padding: 14px 28px;
-
-            border-radius: 13px;
-
-            text-decoration: none;
-
-            font-weight: bold;
-
-            transition: .3s;
-        }
-
-        .payment-btn {
-            background: #ff0000;
-            color: #fff;
-
-            box-shadow:
-                0 10px 30px rgba(255,0,0,.15);
-        }
-
-        .payment-btn:hover {
-            transform: translateY(-3px);
-
-            box-shadow:
-                0 15px 35px rgba(255,0,0,.3);
-        }
-
-        .back-btn {
-            color: #fff;
-
-            background: rgba(255,255,255,.04);
-
-            border:
-                1px solid rgba(255,255,255,.1);
-        }
-
-        .back-btn:hover {
-            transform: translateY(-3px);
-
-            border-color:
-                rgba(255,255,255,.25);
-        }
-
-        /* ANIMATIONS */
-
-        @keyframes checkPop {
-
-            0% {
-                transform: scale(0);
-                opacity: 0;
-            }
-
-            70% {
-                transform: scale(1.12);
-            }
-
-            100% {
-                transform: scale(1);
-                opacity: 1;
-            }
-
-        }
-
-        @keyframes drawCheck {
-
-            0% {
-                transform:
-                    rotate(-45deg)
-                    scale(0);
-            }
-
-            100% {
-                transform:
-                    rotate(-45deg)
-                    scale(1);
-            }
-
-        }
-
-        @keyframes checkGlow {
-
-            0%,100% {
-                box-shadow:
-                    0 0 20px rgba(34,197,94,.3),
-                    0 0 60px rgba(34,197,94,.12);
-            }
-
-            50% {
-                box-shadow:
-                    0 0 35px rgba(34,197,94,.55),
-                    0 0 90px rgba(34,197,94,.2);
-            }
-
-        }
-
-        @keyframes pulse {
-
-            0% {
-                transform: scale(1);
-                opacity: 1;
-            }
-
-            50% {
-                transform: scale(1.5);
-                opacity: .5;
-            }
-
-            100% {
-                transform: scale(1);
-                opacity: 1;
-            }
-
-        }
-
-        @keyframes boxAppear {
-
-            from {
-                opacity: 0;
-                transform:
-                    translateY(25px)
-                    scale(.97);
-            }
-
-            to {
-                opacity: 1;
-                transform:
-                    translateY(0)
-                    scale(1);
-            }
-
-        }
-
-        @media(max-width:600px) {
-
-            .success-box {
-                padding: 40px 20px;
-            }
-
-            .success-title {
-                font-size: 28px;
-            }
-
-            .detail-row {
-                flex-direction: column;
-                gap: 5px;
-            }
-
-            .success-actions {
-                flex-direction: column;
-            }
-
-            .payment-btn,
-            .back-btn {
-                width: 100%;
-                box-sizing: border-box;
-            }
-
-        }
-
-    </style>
-
-</head>
-
-
-<body>
-
-
-<header class="navbar">
-
-    <div class="logo">
-        BOOSTIFY <span>STORE</span>
+{% extends "base.html" %}
+
+{% block title %}BOOSTIFY STORE | تم الطلب بنجاح{% endblock %}
+
+{% block content %}
+<main class="success-page-container">
+    <div class="success-card-box">
+        
+        <div class="success-animation-wrapper">
+            <svg class="animated-checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                <circle class="checkmark-circle" cx="26" cy="26" r="23" fill="none"/>
+                <path class="checkmark-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+            </svg>
+        </div>
+
+        <h3 class="success-status-title">تم إرسال الطلب بنجاح</h3>
+        <h2 class="success-main-heading">خطوة أخيرة لإثبات التحويل</h2>
+        
+        <p class="success-desc">تم إرسال بيانات طلبك للإدارة.</p>
+        <p class="success-subdesc">الآن اضغط على الزر بالأسفل لفتح WhatsApp وإرسال Screenshot لإثبات التحويل.</p>
+
+        <a href="https://wa.me/201123308826" target="_blank" class="whatsapp-send-btn">
+            📱 إرسال الإثبات عبر WhatsApp
+        </a>
+        
+        <div style="margin-top: 25px;">
+            <a href="/" class="secondary-btn" style="display: inline-block;">العودة للرئيسية</a>
+        </div>
     </div>
-
-    <nav>
-
-        <a href="/">الرئيسية</a>
-
-        <a href="/services">
-            الخدمات
-        </a>
-
-        <a href="/subscriptions">
-            الاشتراكات
-        </a>
-
-        <a href="/contact">
-            تواصل معنا
-        </a>
-
-    </nav>
-
-
-    {% if session.get('user_id') %}
-
-        <div class="user-menu">
-
-            <span class="user-name">
-                👤 {{ session.get('name') }}
-            </span>
-
-            <a href="/logout"
-               class="login-btn">
-                تسجيل الخروج
-            </a>
-
-        </div>
-
-    {% endif %}
-
-</header>
-
-
-
-<main>
-
-<section class="success-page">
-
-    <div class="success-box">
-
-
-        <!-- CHECK -->
-
-        <div class="check-circle">
-
-            <div class="check-mark"></div>
-
-        </div>
-
-
-        <!-- TITLE -->
-
-        <h1 class="success-title">
-
-            تم إرسال <span>طلبك بنجاح!</span>
-
-        </h1>
-
-
-        <p class="success-text">
-
-            تم استلام طلبك بنجاح وإرساله لفريق
-            <strong>BOOSTIFY STORE</strong>.
-
-            <br>
-
-            طلبك الآن في انتظار إتمام عملية الدفع.
-
-        </p>
-
-
-        <!-- STATUS -->
-
-        <div class="waiting-status">
-
-            <span class="status-dot"></span>
-
-            في انتظار الدفع
-
-        </div>
-
-
-        <!-- ORDER DETAILS -->
-
-        <div class="order-details">
-
-
-            <div class="detail-row">
-
-                <span class="detail-label">
-                    الخدمة
-                </span>
-
-                <span class="detail-value">
-                    {{ order.product }}
-                </span>
-
-            </div>
-
-
-            <div class="detail-row">
-
-                <span class="detail-label">
-                    الباقة / الكمية
-                </span>
-
-                <span class="detail-value">
-                    {{ order.duration }}
-                </span>
-
-            </div>
-
-
-            <div class="detail-row">
-
-                <span class="detail-label">
-                    السعر
-                </span>
-
-                <span class="detail-value price-value">
-                    {{ order.price }}
-                </span>
-
-            </div>
-
-
-        </div>
-
-
-        <!-- ACTIONS -->
-
-        <div class="success-actions">
-
-            <a href="/checkout"
-               class="payment-btn">
-
-                💳 الانتقال للدفع
-
-            </a>
-
-
-            <a href="/services"
-               class="back-btn">
-
-                ← العودة للخدمات
-
-            </a>
-
-        </div>
-
-
-    </div>
-
-</section>
-
 </main>
 
+<style>
+    .success-page-container {
+        min-height: 75vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 20px;
+    }
 
+    .success-card-box {
+        background: rgba(255, 255, 255, 0.035);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 24px;
+        padding: 45px 30px;
+        max-width: 580px;
+        width: 100%;
+        text-align: center;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    }
 
-<footer>
+    .success-status-title {
+        color: #00ff88;
+        font-size: 22px;
+        margin: 10px 0;
+        font-weight: bold;
+    }
 
-    <div class="footer-logo">
-        BOOSTIFY <span>STORE</span>
-    </div>
+    .success-main-heading {
+        font-size: 30px;
+        margin: 10px 0 20px;
+        color: #fff;
+    }
 
-    <p>
-        © 2026 BOOSTIFY STORE — جميع الحقوق محفوظة.
-    </p>
+    .success-desc {
+        color: #ccc;
+        font-size: 16px;
+        margin: 5px 0;
+    }
 
-</footer>
+    .success-subdesc {
+        color: #888;
+        font-size: 14px;
+        line-height: 1.6;
+        margin: 10px 0 30px;
+    }
 
+    .whatsapp-send-btn {
+        display: inline-block;
+        width: 100%;
+        max-width: 380px;
+        background: #25D366;
+        color: #fff;
+        text-decoration: none;
+        padding: 15px 25px;
+        border-radius: 12px;
+        font-size: 17px;
+        font-weight: bold;
+        transition: .3s;
+        box-shadow: 0 5px 20px rgba(37, 211, 102, 0.25);
+    }
 
-</body>
+    .whatsapp-send-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4);
+    }
 
-</html>
+    /* أنيميشن الدوران ورسم علامة الصح */
+    .success-animation-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto 20px;
+        width: 90px;
+        height: 90px;
+    }
+
+    .animated-checkmark {
+        width: 90px;
+        height: 90px;
+        border-radius: 50%;
+        display: block;
+        stroke-width: 3.5;
+        stroke: #00ff88;
+        stroke-miterlimit: 10;
+        filter: drop-shadow(0 0 12px rgba(0, 255, 136, 0.75));
+        animation: rotatePop 0.8s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+    }
+
+    .checkmark-circle {
+        stroke-dasharray: 166;
+        stroke-dashoffset: 166;
+        stroke-width: 3.5;
+        stroke: #00ff88;
+        fill: none;
+        animation: strokeCircle 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+    }
+
+    .checkmark-check {
+        transform-origin: 50% 50%;
+        stroke-dasharray: 48;
+        stroke-dashoffset: 48;
+        stroke-width: 4;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        animation: strokeCheck 0.35s cubic-bezier(0.65, 0, 0.45, 1) 0.55s forwards;
+    }
+
+    @keyframes rotatePop {
+        0% { transform: rotate(-90deg) scale(0.6); opacity: 0; }
+        60% { transform: rotate(10deg) scale(1.08); opacity: 1; }
+        100% { transform: rotate(0deg) scale(1); opacity: 1; }
+    }
+
+    @keyframes strokeCircle {
+        100% { stroke-dashoffset: 0; }
+    }
+
+    @keyframes strokeCheck {
+        100% { stroke-dashoffset: 0; }
+    }
+</style>
+{% endblock %}

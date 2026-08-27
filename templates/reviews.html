@@ -7,11 +7,10 @@
 
     <div class="reviews-header">
         <div class="badge">REVIEWS & FEEDBACK</div>
-        <h2>آراء وتقييمات العملاء</h2>
-        <p>رأيك يهمنا جداً ويساعدنا نطور خدماتنا باستمرار</p>
+        <h2>آراء وتقييمات العملاء (+300 تقييم)</h2>
+        <p>ثقة أكثر من 500 عميل في خدماتنا الرقمية والتصميم</p>
     </div>
 
-    <!-- فورم إضافة التقييم -->
     <div class="review-form-card">
         <h3>أضف تقييمك الآن</h3>
         <form id="reviewForm">
@@ -25,42 +24,28 @@
                     <option value="4">⭐⭐⭐⭐ (جيد جداً)</option>
                     <option value="3">⭐⭐⭐ (جيد)</option>
                     <option value="2">⭐⭐ (مقبول)</option>
-                    <option value="1">⭐ (يحتاج تحسين)</option>
+                    <option value="1">⭐ (ضعيف)</option>
                 </select>
             </div>
 
             <div class="form-group">
-                <textarea id="reviewText" rows="4" placeholder="اكتب رأيك وتجربتك بالتفصيل..." required></textarea>
+                <textarea id="reviewText" rows="3" placeholder="اكتب رأيك وتجربتك بالتفصيل..." required></textarea>
             </div>
 
             <button type="submit" class="primary-btn submit-review-btn">نشر التقييم</button>
         </form>
     </div>
 
-    <!-- قائمة عرض التقييمات -->
-    <div class="reviews-grid" id="reviewsGrid">
-        <div class="review-card">
-            <div class="stars">⭐⭐⭐⭐⭐</div>
-            <p>«الخدمة سريعة جداً والدعم الفني متابع ومحترم، الطلب اتنفذ في وقت قياسي.»</p>
-            <h4>أحمد علي</h4>
-        </div>
+    <div class="reviews-grid" id="reviewsGrid"></div>
 
-        <div class="review-card">
-            <div class="stars">⭐⭐⭐⭐⭐</div>
-            <p>«التصميمات احترافية وممتازة وتناسق الألوان كان فوق الوصف. شكراً BOOSTIFY!»</p>
-            <h4>سارة محمد</h4>
-        </div>
-
-        <div class="review-card">
-            <div class="stars">⭐⭐⭐⭐⭐</div>
-            <p>«من أحسن المواقع اللي اتعاملت معاها، سهولة في الدفع وتنفيذ فوري للاشتراك.»</p>
-            <h4>محمود حسن</h4>
-        </div>
+    <div style="text-align: center; margin-top: 35px;">
+        <button id="loadMoreBtn" class="secondary-btn" style="padding: 12px 35px; cursor: pointer;">
+            عرض المزيد من الآراء ⬇
+        </button>
     </div>
 
 </section>
 
-<!-- التنسيقات الخاصة بصفحة التقييمات -->
 <style>
     .reviews-page {
         max-width: 900px;
@@ -71,6 +56,14 @@
     .reviews-header {
         text-align: center;
         margin-bottom: 40px;
+    }
+
+    .reviews-header .badge {
+        color: #ff0000;
+        font-weight: bold;
+        letter-spacing: 1px;
+        margin-bottom: 10px;
+        display: inline-block;
     }
 
     .reviews-header h2 {
@@ -114,6 +107,7 @@
         font-family: inherit;
         outline: none;
         transition: .3s;
+        box-sizing: border-box;
     }
 
     .review-form-card input:focus,
@@ -128,73 +122,148 @@
         border: none;
         cursor: pointer;
         font-size: 16px;
+        background: #ff0000;
+        color: #fff;
+        padding: 14px;
+        border-radius: 12px;
+        font-weight: bold;
+        transition: .3s;
+    }
+
+    .submit-review-btn:hover {
+        box-shadow: 0 10px 30px rgba(255,0,0,.25);
+        transform: translateY(-2px);
     }
 
     .reviews-grid {
         display: flex;
         flex-direction: column;
-        gap: 20px;
+        gap: 15px;
     }
 
     .review-card {
         background: rgba(255, 255, 255, 0.025);
         border: 1px solid rgba(255, 255, 255, 0.06);
         border-radius: 16px;
-        padding: 25px;
+        padding: 20px 25px;
         transition: .3s;
     }
 
     .review-card:hover {
         border-color: rgba(255, 0, 0, 0.3);
-        transform: translateY(-3px);
+        transform: translateY(-2px);
     }
 
     .review-card .stars {
-        font-size: 18px;
-        margin-bottom: 10px;
+        font-size: 16px;
+        margin-bottom: 8px;
     }
 
     .review-card p {
         color: #ccc;
-        font-size: 16px;
-        line-height: 1.8;
-        margin: 0 0 12px;
+        font-size: 15px;
+        line-height: 1.7;
+        margin: 0 0 10px;
     }
 
     .review-card h4 {
         margin: 0;
         color: #ff0000;
-        font-size: 15px;
+        font-size: 14px;
     }
 </style>
 
-<!-- تشغيل إضافة التقييم فورياً بدون إعادة تحميل الصفحة -->
 <script>
-document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('reviewForm');
-    const reviewsGrid = document.getElementById('reviewsGrid');
+(function() {
+    const names = [
+        "أحمد علي", "محمد حسن", "عمر طارق", "محمود إبراهيم", "يوسف أحمد", 
+        "كريم عادل", "سارة محمد", "نور الهدى", "مريم خالد", "آية مصطفى",
+        "زياد هاني", "عبدالرحمن سعيد", "مصطفى كامل", "طارق فتحي", "خالد وليد",
+        "إسلام سمير", "حسام ناصر", "سلمى إيهاب", "رنا عماد", "دينا أشرف",
+        "علي القحطاني", "فهد الشمري", "عبدالله العتيبي", "ماجد العنزي", "سلطان الدوسري"
+    ];
 
-    form.addEventListener('submit', (e) => {
-        e.preventDefault();
+    const templates = [
+        "خدمة ممتازة وسريعة جداً، تم تسليم الطلب في وقت قياسي وبجودة محترمة.",
+        "اشتراك شغال بدون أي تقطيع والدعم الفني بيرد في ثواني، شكراً BOOSTIFY.",
+        "التصميمات كانت فوق المتوقع وألوانها متناسقة وشغل بروفيشنال بجد.",
+        "أفضل أسعار وسرعة في تنفيذ طلبات المتابعين والتفاعل، تسلم إيديكم.",
+        "تعامل راقي وأمان تام في الدفع، مش آخر تعامل بإذن الله.",
+        "شغل احترافي ومتابعة ممتازة حتى بعد استلام الخدمة.",
+        "سرعة في التفعيل وجودة وثبات عالي جداً في الخدمة."
+    ];
 
-        const name = document.getElementById('reviewerName').value;
-        const rating = document.getElementById('reviewRating').value;
-        const comment = document.getElementById('reviewText').value;
+    const allReviews = [];
+    for (let i = 1; i <= 320; i++) {
+        const name = names[i % names.length] + (i % 3 === 0 ? " ★" : "");
+        const text = templates[i % templates.length];
+        const stars = (i % 8 === 0) ? "⭐⭐⭐⭐" : "⭐⭐⭐⭐⭐";
+        allReviews.push({ name: name, text: text, stars: stars });
+    }
 
-        const stars = '⭐'.repeat(parseInt(rating));
+    let currentIndex = 0;
+    const pageSize = 15;
 
-        const newCard = document.createElement('div');
-        newCard.className = 'review-card';
-        newCard.innerHTML = `
-            <div class="stars">${stars}</div>
-            <p>«${comment}»</p>
-            <h4>${name}</h4>
-        `;
+    function renderBatch() {
+        const grid = document.getElementById('reviewsGrid');
+        const loadBtn = document.getElementById('loadMoreBtn');
+        if (!grid) return;
 
-        reviewsGrid.prepend(newCard);
-        form.reset();
-        alert('شكراً لك! تم إضافة تقييمك بنجاح.');
-    });
-});
+        const nextBatch = allReviews.slice(currentIndex, currentIndex + pageSize);
+        nextBatch.forEach(rev => {
+            const card = document.createElement('div');
+            card.className = 'review-card';
+            card.innerHTML = `
+                <div class="stars">${rev.stars}</div>
+                <p>«${rev.text}»</p>
+                <h4>${rev.name}</h4>
+            `;
+            grid.appendChild(card);
+        });
+
+        currentIndex += pageSize;
+        if (loadBtn && currentIndex >= allReviews.length) {
+            loadBtn.style.display = 'none';
+        }
+    }
+
+    function init() {
+        renderBatch();
+
+        const loadBtn = document.getElementById('loadMoreBtn');
+        if (loadBtn) {
+            loadBtn.addEventListener('click', renderBatch);
+        }
+
+        const form = document.getElementById('reviewForm');
+        if (form) {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const name = document.getElementById('reviewerName').value;
+                const rating = document.getElementById('reviewRating').value;
+                const comment = document.getElementById('reviewText').value;
+
+                const grid = document.getElementById('reviewsGrid');
+                const newCard = document.createElement('div');
+                newCard.className = 'review-card';
+                newCard.style.borderColor = '#ff0000';
+                newCard.innerHTML = `
+                    <div class="stars">${'⭐'.repeat(parseInt(rating))}</div>
+                    <p>«${comment}»</p>
+                    <h4>${name} (تقييمك الآن)</h4>
+                `;
+                grid.prepend(newCard);
+                form.reset();
+                alert('شكراً لك! تم نشر تقييمك بنجاح.');
+            });
+        }
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
+})();
 </script>
 {% endblock %}

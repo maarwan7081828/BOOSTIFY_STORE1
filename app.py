@@ -943,7 +943,10 @@ def whatsapp_proof():
 
 init_db()
 
-
+@app.route('/reviews')
+def reviews():
+    return render_template('reviews.html')
+    
 if __name__ == "__main__":
     app.run(
         host="0.0.0.0",

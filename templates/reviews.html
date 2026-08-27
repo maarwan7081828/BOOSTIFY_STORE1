@@ -1,0 +1,200 @@
+{% extends "base.html" %}
+
+{% block title %}BOOSTIFY STORE | آراء العملاء{% endblock %}
+
+{% block content %}
+<section class="reviews-page">
+
+    <div class="reviews-header">
+        <div class="badge">REVIEWS & FEEDBACK</div>
+        <h2>آراء وتقييمات العملاء</h2>
+        <p>رأيك يهمنا جداً ويساعدنا نطور خدماتنا باستمرار</p>
+    </div>
+
+    <!-- فورم إضافة التقييم -->
+    <div class="review-form-card">
+        <h3>أضف تقييمك الآن</h3>
+        <form id="reviewForm">
+            <div class="form-group">
+                <input type="text" id="reviewerName" placeholder="اسمك الكريم" required>
+            </div>
+            
+            <div class="form-group">
+                <select id="reviewRating" required>
+                    <option value="5">⭐⭐⭐⭐⭐ (ممتاز جداً)</option>
+                    <option value="4">⭐⭐⭐⭐ (جيد جداً)</option>
+                    <option value="3">⭐⭐⭐ (جيد)</option>
+                    <option value="2">⭐⭐ (مقبول)</option>
+                    <option value="1">⭐ (يحتاج تحسين)</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <textarea id="reviewText" rows="4" placeholder="اكتب رأيك وتجربتك بالتفصيل..." required></textarea>
+            </div>
+
+            <button type="submit" class="primary-btn submit-review-btn">نشر التقييم</button>
+        </form>
+    </div>
+
+    <!-- قائمة عرض التقييمات -->
+    <div class="reviews-grid" id="reviewsGrid">
+        <div class="review-card">
+            <div class="stars">⭐⭐⭐⭐⭐</div>
+            <p>«الخدمة سريعة جداً والدعم الفني متابع ومحترم، الطلب اتنفذ في وقت قياسي.»</p>
+            <h4>أحمد علي</h4>
+        </div>
+
+        <div class="review-card">
+            <div class="stars">⭐⭐⭐⭐⭐</div>
+            <p>«التصميمات احترافية وممتازة وتناسق الألوان كان فوق الوصف. شكراً BOOSTIFY!»</p>
+            <h4>سارة محمد</h4>
+        </div>
+
+        <div class="review-card">
+            <div class="stars">⭐⭐⭐⭐⭐</div>
+            <p>«من أحسن المواقع اللي اتعاملت معاها، سهولة في الدفع وتنفيذ فوري للاشتراك.»</p>
+            <h4>محمود حسن</h4>
+        </div>
+    </div>
+
+</section>
+
+<!-- التنسيقات الخاصة بصفحة التقييمات -->
+<style>
+    .reviews-page {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 60px 20px 100px;
+    }
+
+    .reviews-header {
+        text-align: center;
+        margin-bottom: 40px;
+    }
+
+    .reviews-header h2 {
+        font-size: 36px;
+        margin: 10px 0;
+    }
+
+    .reviews-header p {
+        color: #aaa;
+        font-size: 16px;
+    }
+
+    .review-form-card {
+        background: rgba(255, 255, 255, 0.035);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 20px;
+        padding: 30px;
+        margin-bottom: 45px;
+    }
+
+    .review-form-card h3 {
+        margin: 0 0 20px;
+        font-size: 22px;
+        color: #fff;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .review-form-card input,
+    .review-form-card select,
+    .review-form-card textarea {
+        width: 100%;
+        padding: 14px;
+        background: rgba(0, 0, 0, 0.5);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 12px;
+        color: #fff;
+        font-size: 15px;
+        font-family: inherit;
+        outline: none;
+        transition: .3s;
+    }
+
+    .review-form-card input:focus,
+    .review-form-card select:focus,
+    .review-form-card textarea:focus {
+        border-color: #ff0000;
+        box-shadow: 0 0 10px rgba(255, 0, 0, 0.2);
+    }
+
+    .submit-review-btn {
+        width: 100%;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    .reviews-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .review-card {
+        background: rgba(255, 255, 255, 0.025);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        border-radius: 16px;
+        padding: 25px;
+        transition: .3s;
+    }
+
+    .review-card:hover {
+        border-color: rgba(255, 0, 0, 0.3);
+        transform: translateY(-3px);
+    }
+
+    .review-card .stars {
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+
+    .review-card p {
+        color: #ccc;
+        font-size: 16px;
+        line-height: 1.8;
+        margin: 0 0 12px;
+    }
+
+    .review-card h4 {
+        margin: 0;
+        color: #ff0000;
+        font-size: 15px;
+    }
+</style>
+
+<!-- تشغيل إضافة التقييم فورياً بدون إعادة تحميل الصفحة -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('reviewForm');
+    const reviewsGrid = document.getElementById('reviewsGrid');
+
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const name = document.getElementById('reviewerName').value;
+        const rating = document.getElementById('reviewRating').value;
+        const comment = document.getElementById('reviewText').value;
+
+        const stars = '⭐'.repeat(parseInt(rating));
+
+        const newCard = document.createElement('div');
+        newCard.className = 'review-card';
+        newCard.innerHTML = `
+            <div class="stars">${stars}</div>
+            <p>«${comment}»</p>
+            <h4>${name}</h4>
+        `;
+
+        reviewsGrid.prepend(newCard);
+        form.reset();
+        alert('شكراً لك! تم إضافة تقييمك بنجاح.');
+    });
+});
+</script>
+{% endblock %}

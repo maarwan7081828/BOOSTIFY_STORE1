@@ -14,6 +14,10 @@
 
 <style>
 
+/* =========================================================
+   CHECKOUT
+========================================================= */
+
 .checkout-page {
     max-width: 950px;
     margin: auto;
@@ -49,6 +53,10 @@
     box-shadow: 0 0 50px rgba(255,0,0,.06);
 }
 
+/* =========================================================
+   ORDER INFO
+========================================================= */
+
 .order-info {
     padding: 22px;
     border-radius: 18px;
@@ -81,6 +89,10 @@
     color: #ff0000;
     font-size: 20px;
 }
+
+/* =========================================================
+   FORM
+========================================================= */
 
 .form-section {
     margin-top: 25px;
@@ -135,7 +147,9 @@
     font-size: 13px;
 }
 
-/* PAYMENT */
+/* =========================================================
+   PAYMENT
+========================================================= */
 
 .payment-section {
     margin-top: 30px;
@@ -256,7 +270,9 @@
     color: #777;
 }
 
-/* NOTICE */
+/* =========================================================
+   NOTICE
+========================================================= */
 
 .payment-notice {
     display: flex;
@@ -286,7 +302,9 @@
     line-height: 1.8;
 }
 
-/* PAYMENT DETAILS */
+/* =========================================================
+   PAYMENT DETAILS
+========================================================= */
 
 .payment-details {
     margin-top: 20px;
@@ -325,7 +343,9 @@
     direction: ltr;
 }
 
-/* WARNINGS */
+/* =========================================================
+   WARNINGS
+========================================================= */
 
 .warning-box {
     margin-top: 25px;
@@ -351,7 +371,9 @@
     color: white;
 }
 
-/* BUTTON */
+/* =========================================================
+   BUTTON
+========================================================= */
 
 .submit-btn {
     position: relative;
@@ -426,41 +448,196 @@
     color: #fff;
 }
 
-/* SUCCESS */
+
+/* =========================================================
+   SUCCESS SCREEN
+========================================================= */
 
 .success-screen {
     text-align: center;
-    padding: 35px 10px;
+    padding: 45px 10px;
+    animation: successFade .6s ease forwards;
 }
 
-.success-icon {
-    font-size: 80px;
-    margin-bottom: 20px;
+
+/* =========================================================
+   SUCCESS CHECK ANIMATION
+========================================================= */
+
+.success-animation {
+    position: relative;
+    width: 130px;
+    height: 130px;
+    margin: 0 auto 35px;
 }
+
+.success-circle {
+    position: absolute;
+    inset: 5px;
+
+    width: 120px;
+    height: 120px;
+
+    box-sizing: border-box;
+
+    border-radius: 50%;
+
+    background: rgba(0,214,107,.08);
+
+    border: 4px solid #00d66b;
+
+    box-shadow:
+        0 0 20px rgba(0,214,107,.45),
+        0 0 50px rgba(0,214,107,.25),
+        inset 0 0 25px rgba(0,214,107,.08);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transform: scale(0);
+
+    animation:
+        successCircle .7s
+        cubic-bezier(.17,.89,.32,1.35)
+        forwards;
+}
+
+
+/* الصح نفسه */
+
+.success-check {
+    width: 62px;
+    height: 34px;
+
+    border-left: 7px solid #00d66b;
+    border-bottom: 7px solid #00d66b;
+
+    transform:
+        rotate(-45deg)
+        scale(0);
+
+    transform-origin: center;
+
+    opacity: 0;
+
+    filter:
+        drop-shadow(0 0 5px #00d66b)
+        drop-shadow(0 0 12px rgba(0,214,107,.8));
+
+    animation:
+        drawCheck .6s
+        .65s
+        cubic-bezier(.17,.89,.32,1.35)
+        forwards;
+}
+
+
+/* الدائرة اللي بتطلع برا */
+
+.success-animation::before,
+.success-animation::after {
+    content: "";
+
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+
+    width: 120px;
+    height: 120px;
+
+    margin-left: -60px;
+    margin-top: -60px;
+
+    border-radius: 50%;
+
+    border: 2px solid rgba(0,214,107,.35);
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    animation: successPulse 1.5s ease-out 1s forwards;
+}
+
+.success-animation::after {
+    animation-delay: 1.25s;
+}
+
+
+/* =========================================================
+   SUCCESS TEXT
+========================================================= */
 
 .success-title {
     color: #00d66b;
+
     font-size: 25px;
+
     font-weight: bold;
+
+    text-shadow:
+        0 0 10px rgba(0,214,107,.45),
+        0 0 25px rgba(0,214,107,.20);
+
+    opacity: 0;
+
+    animation:
+        successText .6s
+        .85s
+        ease
+        forwards;
 }
 
 .success-screen h2 {
     font-size: 30px;
+
     margin: 15px 0;
+
+    opacity: 0;
+
+    animation:
+        successText .6s
+        1s
+        ease
+        forwards;
 }
 
-.success-screen p {
+.success-screen > p {
     color: #aaa;
+
     line-height: 2;
+
+    opacity: 0;
+
+    animation:
+        successText .6s
+        1.1s
+        ease
+        forwards;
 }
 
 .success-order {
     margin: 25px auto;
+
     padding: 18px;
+
     max-width: 500px;
+
     border-radius: 17px;
+
     background: rgba(255,255,255,.03);
+
     border: 1px solid rgba(255,255,255,.07);
+
+    opacity: 0;
+
+    animation:
+        successText .6s
+        1.2s
+        ease
+        forwards;
 }
 
 .success-order p {
@@ -471,7 +648,145 @@
     color: #fff;
 }
 
-/* MOBILE */
+.success-screen .whatsapp-btn {
+    opacity: 0;
+
+    animation:
+        successButton .6s
+        1.35s
+        ease
+        forwards;
+}
+
+.success-screen .back-btn {
+    opacity: 0;
+
+    animation:
+        successButton .6s
+        1.5s
+        ease
+        forwards;
+}
+
+
+/* =========================================================
+   ANIMATIONS
+========================================================= */
+
+@keyframes successCircle {
+
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+
+    70% {
+        transform: scale(1.12);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+
+@keyframes drawCheck {
+
+    0% {
+        transform:
+            rotate(-45deg)
+            scale(0);
+
+        opacity: 0;
+    }
+
+    50% {
+        transform:
+            rotate(-45deg)
+            scale(1.18);
+
+        opacity: 1;
+    }
+
+    100% {
+        transform:
+            rotate(-45deg)
+            scale(1);
+
+        opacity: 1;
+    }
+}
+
+
+@keyframes successPulse {
+
+    0% {
+        transform: scale(.5);
+        opacity: 0;
+    }
+
+    20% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1.8);
+        opacity: 0;
+    }
+}
+
+
+@keyframes successFade {
+
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+@keyframes successText {
+
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+@keyframes successButton {
+
+    from {
+        opacity: 0;
+        transform:
+            translateY(20px)
+            scale(.96);
+    }
+
+    to {
+        opacity: 1;
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
 
 @media(max-width:600px) {
 
@@ -500,15 +815,28 @@
         flex-direction: column;
         align-items: flex-start;
     }
+
+    .success-animation {
+        transform: scale(.9);
+    }
+
+    .success-screen h2 {
+        font-size: 25px;
+    }
+
 }
 
 </style>
 
 </head>
 
+
 <body>
 
-<!-- NAVBAR -->
+
+<!-- =========================================================
+     NAVBAR
+========================================================= -->
 
 <header class="navbar">
 
@@ -536,6 +864,7 @@
 
     </nav>
 
+
     {% if session.get('user_id') %}
 
         <div class="user-menu">
@@ -561,9 +890,15 @@
 </header>
 
 
+
+<!-- =========================================================
+     MAIN
+========================================================= -->
+
 <main>
 
 <section class="checkout-page">
+
 
     <div class="checkout-header">
 
@@ -582,50 +917,99 @@
     </div>
 
 
+
     <div class="checkout-box">
 
 
     {% if success %}
 
+
+        <!-- =================================================
+             SUCCESS
+        ================================================== -->
+
         <div class="success-screen">
 
-            <div class="success-icon">
-                ✅
+
+            <!-- SUCCESS ANIMATION -->
+
+            <div class="success-animation">
+
+                <div class="success-circle">
+
+                    <div class="success-check"></div>
+
+                </div>
+
             </div>
+
+
 
             <div class="success-title">
+
                 تم إرسال الطلب بنجاح
+
             </div>
 
+
+
             <h2>
+
                 خطوة أخيرة لإثبات التحويل
+
             </h2>
 
+
+
             <p>
+
                 تم إرسال بيانات طلبك للإدارة.
                 <br>
+
                 الآن اضغط على الزر بالأسفل لفتح WhatsApp
                 وإرسال Screenshot لإثبات التحويل.
+
             </p>
+
+
 
             <div class="success-order">
 
                 <p>
+
                     الخدمة:
-                    <strong>{{ product }}</strong>
+
+                    <strong>
+                        {{ product }}
+                    </strong>
+
                 </p>
 
+
                 <p>
+
                     الباقة / الكمية:
-                    <strong>{{ duration }}</strong>
+
+                    <strong>
+                        {{ duration }}
+                    </strong>
+
                 </p>
 
+
                 <p>
+
                     السعر:
-                    <strong>{{ price }} جنيه</strong>
+
+                    <strong>
+                        {{ price }} جنيه
+                    </strong>
+
                 </p>
 
             </div>
+
+
 
             {% if whatsapp_url %}
 
@@ -634,19 +1018,27 @@
                     target="_blank"
                     class="whatsapp-btn"
                 >
+
                     📱 إرسال إثبات التحويل عبر WhatsApp
+
                 </a>
 
             {% endif %}
+
+
 
             <a
                 href="/services"
                 class="back-btn"
             >
+
                 العودة للخدمات
+
             </a>
 
+
         </div>
+
 
 
     {% else %}
@@ -655,15 +1047,21 @@
         {% if error %}
 
             <div class="error-message">
+
                 {{ error }}
+
             </div>
 
         {% endif %}
 
 
-        <!-- ORDER -->
+
+        <!-- =================================================
+             ORDER
+        ================================================== -->
 
         <div class="order-info">
+
 
             <div class="info-row">
 
@@ -677,6 +1075,7 @@
 
             </div>
 
+
             <div class="info-row">
 
                 <span class="info-label">
@@ -688,6 +1087,7 @@
                 </span>
 
             </div>
+
 
             <div class="info-row">
 
@@ -701,15 +1101,20 @@
 
             </div>
 
+
         </div>
 
 
-        <!-- FORM -->
+
+        <!-- =================================================
+             FORM
+        ================================================== -->
 
         <form
             action="{{ url_for('send_order') }}"
             method="POST"
         >
+
 
             <input
                 type="hidden"
@@ -736,7 +1141,11 @@
             >
 
 
+
             {% if is_social %}
+
+
+            <!-- SOCIAL ACCOUNT -->
 
             <div class="form-section">
 
@@ -744,12 +1153,19 @@
                     🌐 بيانات الحساب
                 </h2>
 
+
                 <div class="form-group">
 
                     <label>
+
                         Username
-                        <span>*</span>
+
+                        <span>
+                            *
+                        </span>
+
                     </label>
+
 
                     <input
                         type="text"
@@ -760,12 +1176,20 @@
 
                 </div>
 
+
+
                 <div class="form-group">
 
                     <label>
+
                         رابط الحساب / البوست / الصفحة
-                        <span>*</span>
+
+                        <span>
+                            *
+                        </span>
+
                     </label>
+
 
                     <input
                         type="url"
@@ -778,19 +1202,27 @@
 
             </div>
 
+
             {% endif %}
 
 
-            <!-- DETAILS -->
+
+            <!-- =================================================
+                 DETAILS
+            ================================================== -->
 
             <div class="form-section">
 
                 <h2>
+
                     📝 تفاصيل الطلب
+
                     <span class="optional">
                         (اختياري)
                     </span>
+
                 </h2>
+
 
                 <div class="form-group">
 
@@ -804,15 +1236,21 @@
             </div>
 
 
-            <!-- PAYMENT -->
+
+            <!-- =================================================
+                 PAYMENT
+            ================================================== -->
 
             {% if not is_custom %}
 
+
             <div class="payment-section">
+
 
                 <h2>
                     💳 طريقة الدفع
                 </h2>
+
 
 
                 <div class="payment-notice">
@@ -821,15 +1259,19 @@
                         💰
                     </div>
 
+
                     <div>
 
                         <strong>
                             قم بإرسال المبلغ المطلوب
                         </strong>
 
+
                         <p>
+
                             قم بتحويل المبلغ المطلوب بالكامل حسب السعر الموضح في طلبك
                             إلى أحد أرقام الدفع التالية.
+
                         </p>
 
                     </div>
@@ -837,13 +1279,18 @@
                 </div>
 
 
-                <!-- PAYMENT NUMBERS -->
+
+                <!-- PAYMENT DETAILS -->
 
                 <div class="payment-details">
 
+
                     <div class="payment-details-title">
+
                         💰 بيانات الدفع
+
                     </div>
+
 
                     <div class="payment-number">
 
@@ -857,6 +1304,7 @@
 
                     </div>
 
+
                     <div class="payment-number">
 
                         <span>
@@ -869,6 +1317,7 @@
 
                     </div>
 
+
                     <div class="payment-number">
 
                         <span>
@@ -876,19 +1325,27 @@
                         </span>
 
                         <strong style="color:#ff0000;">
+
                             {{ price }} جنيه
+
                         </strong>
 
                     </div>
 
+
                 </div>
+
 
 
                 <!-- PAYMENT SELECT -->
 
                 <h3 style="margin-top:25px;">
+
                     اختر طريقة الدفع
+
                 </h3>
+
+
 
                 <div class="payment-select">
 
@@ -897,6 +1354,7 @@
 
                     <label class="payment-option">
 
+
                         <input
                             type="radio"
                             name="payment_method"
@@ -904,37 +1362,47 @@
                             required
                         >
 
+
                         <div class="payment-card">
+
 
                             <img
                                 src="{{ url_for('static', filename='images/instapay.png') }}"
                                 alt="InstaPay"
                             >
 
+
                             <div class="payment-card-info">
+
 
                                 <h3>
                                     InstaPay
                                 </h3>
 
+
                                 <p>
                                     01123308826
                                 </p>
 
+
                             </div>
+
 
                             <div class="payment-check">
                                 ✓
                             </div>
+
 
                         </div>
 
                     </label>
 
 
+
                     <!-- ETISALAT -->
 
                     <label class="payment-option">
+
 
                         <input
                             type="radio"
@@ -942,44 +1410,61 @@
                             value="Etisalat Cash"
                         >
 
+
                         <div class="payment-card">
+
 
                             <img
                                 src="{{ url_for('static', filename='images/etisalat-cash.png') }}"
                                 alt="Etisalat Cash"
                             >
 
+
                             <div class="payment-card-info">
+
 
                                 <h3>
                                     Etisalat Cash
                                 </h3>
 
+
                                 <p>
                                     01123308826
                                 </p>
 
+
                             </div>
+
 
                             <div class="payment-check">
                                 ✓
                             </div>
 
+
                         </div>
 
                     </label>
 
+
                 </div>
+
 
 
                 <!-- TRANSFER PHONE -->
 
                 <div class="form-group payment-input">
 
+
                     <label>
+
                         📱 رقم الهاتف المحول منه
-                        <span>*</span>
+
+                        <span>
+                            *
+                        </span>
+
                     </label>
+
 
                     <input
                         type="tel"
@@ -991,14 +1476,22 @@
                 </div>
 
 
+
                 <!-- TRANSFER AMOUNT -->
 
                 <div class="form-group payment-input">
 
+
                     <label>
+
                         💰 المبلغ الذي قمت بتحويله
-                        <span>*</span>
+
+                        <span>
+                            *
+                        </span>
+
                     </label>
+
 
                     <input
                         type="number"
@@ -1012,23 +1505,29 @@
                 </div>
 
 
+
                 <!-- AFTER PAYMENT -->
 
                 <div class="payment-notice">
+
 
                     <div class="payment-notice-icon">
                         📸
                     </div>
 
+
                     <div>
+
 
                         <strong>
                             بعد التحويل
                         </strong>
 
+
                         <p>
 
                             بعد تحويل المبلغ، اضغط على
+
                             <strong style="color:white;">
                                 إتمام الطلب وإرسال إثبات التحويل عبر WhatsApp
                             </strong>
@@ -1039,62 +1538,94 @@
 
                         </p>
 
+
                     </div>
 
                 </div>
+
 
 
                 <!-- WARNINGS -->
 
                 <div class="warning-box">
 
+
                     <h3>
+
                         ⚠️ تنبيهات مهمة قبل إتمام الطلب
+
                     </h3>
 
+
                     <p>
+
                         <strong>1.</strong>
+
                         لا تقم بتحويل أي مبلغ قبل التأكد من الخدمة
                         والسعر الموضحين في صفحة الطلب.
+
                     </p>
 
+
                     <p>
+
                         <strong>2.</strong>
+
                         بعد التحويل، يجب إتمام الطلب وإرسال صورة
                         إثبات التحويل عبر WhatsApp حتى نتمكن من مراجعة العملية.
+
                     </p>
 
+
                     <p>
+
                         <strong>3.</strong>
+
                         التحويل بدون إرسال الطلب وبياناته لا يُعتبر
                         طلبًا مكتملًا وقد يؤدي إلى تأخير التنفيذ لحين التأكد من البيانات.
+
                     </p>
 
+
                     <p>
+
                         <strong>4.</strong>
+
                         تأكد من صحة رقم التحويل والمبلغ قبل إرسال الأموال،
                         ولا تقم بالتحويل إلى أي رقم غير موضح داخل الموقع.
+
                     </p>
 
+
                     <p>
+
                         <strong>5.</strong>
+
                         احتفظ بإيصال التحويل حتى يتم تأكيد استلام
                         ومراجعة المبلغ من BOOSTIFY STORE.
+
                     </p>
+
 
                 </div>
 
+
             </div>
+
 
             {% endif %}
 
 
-            <!-- SUBMIT -->
+
+            <!-- =================================================
+                 SUBMIT
+            ================================================== -->
 
             <button
                 type="submit"
                 class="submit-btn"
             >
+
 
                 {% if is_custom %}
 
@@ -1106,20 +1637,26 @@
 
                 {% endif %}
 
+
             </button>
 
+
         </form>
+
 
 
         <a
             href="/services"
             class="back-btn"
         >
+
             العودة للخدمات
+
         </a>
 
 
     {% endif %}
+
 
     </div>
 
@@ -1128,17 +1665,28 @@
 </main>
 
 
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
 <footer>
 
     <div class="footer-logo">
+
         BOOSTIFY <span>STORE</span>
+
     </div>
 
+
     <p>
+
         © 2026 BOOSTIFY STORE — جميع الحقوق محفوظة.
+
     </p>
 
 </footer>
+
 
 </body>
 

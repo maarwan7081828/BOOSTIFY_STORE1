@@ -107,6 +107,61 @@
             transform: translateY(-3px);
         }
 
+        /* STATS COUNTER */
+
+        .stats-section {
+            max-width: 1100px;
+            margin: -40px auto 40px;
+            padding: 0 20px;
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+
+        .stat-card {
+            flex: 1;
+            min-width: 220px;
+            background: rgba(255,255,255,.035);
+            border: 1px solid rgba(255,255,255,.08);
+            border-radius: 20px;
+            padding: 30px 20px;
+            text-align: center;
+            transition: .3s;
+        }
+
+        .stat-card:hover {
+            border-color: rgba(255,0,0,.4);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(255,0,0,.08);
+        }
+
+        .stat-number {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+        }
+
+        .stat-card h3 {
+            font-size: 42px;
+            font-weight: bold;
+            margin: 0;
+            color: #fff;
+        }
+
+        .stat-card span {
+            font-size: 34px;
+            font-weight: bold;
+            color: #ff0000;
+        }
+
+        .stat-card p {
+            margin: 10px 0 0;
+            color: #aaa;
+            font-size: 16px;
+        }
+
         /* FEATURES */
 
         .features {
@@ -335,6 +390,10 @@
                 font-size: 30px;
             }
 
+            .stat-card {
+                min-width: 100%;
+            }
+
         }
 
     </style>
@@ -353,6 +412,7 @@
         <a href="/">الرئيسية</a>
         <a href="/services">الخدمات</a>
         <a href="/subscriptions">الاشتراكات</a>
+        <a href="/reviews">آراء العملاء</a>
         <a href="/contact">تواصل معنا</a>
     </nav>
 
@@ -418,6 +478,37 @@
 
             </div>
 
+        </div>
+
+    </section>
+
+
+    <!-- STATS (العداد والإحصائيات) -->
+
+    <section class="stats-section">
+
+        <div class="stat-card">
+            <div class="stat-number">
+                <h3 class="counter" data-target="578">0</h3>
+                <span>+</span>
+            </div>
+            <p>طلب تم تنفيذه</p>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-number">
+                <h3 class="counter" data-target="500">0</h3>
+                <span>+</span>
+            </div>
+            <p>عميل سعيد</p>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-number">
+                <h3 class="counter" data-target="99">0</h3>
+                <span>%</span>
+            </div>
+            <p>نسبة التقييم الإيجابي</p>
         </div>
 
     </section>
@@ -647,6 +738,47 @@
 
 </footer>
 
+
+<!-- كود تشغيل العداد -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const counters = document.querySelectorAll('.counter');
+    let statsTriggered = false;
+
+    function runCounters() {
+        counters.forEach(counter => {
+            counter.innerText = '0';
+            const target = +counter.getAttribute('data-target');
+            const speed = 120;
+            const updateCount = () => {
+                const count = +counter.innerText;
+                const inc = Math.ceil(target / speed);
+                if (count < target) {
+                    counter.innerText = count + inc > target ? target : count + inc;
+                    setTimeout(updateCount, 15);
+                } else {
+                    counter.innerText = target;
+                }
+            };
+            updateCount();
+        });
+    }
+
+    function checkScroll() {
+        const section = document.querySelector('.stats-section');
+        if (section && !statsTriggered) {
+            const rect = section.getBoundingClientRect();
+            if (rect.top < window.innerHeight && rect.bottom >= 0) {
+                runCounters();
+                statsTriggered = true;
+            }
+        }
+    }
+
+    window.addEventListener('scroll', checkScroll);
+    checkScroll();
+});
+</script>
 
 <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 

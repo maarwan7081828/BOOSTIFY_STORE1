@@ -14,10 +14,6 @@
 
 <style>
 
-/* =========================================================
-   CHECKOUT
-========================================================= */
-
 .checkout-page {
     max-width: 950px;
     margin: auto;
@@ -53,10 +49,6 @@
     box-shadow: 0 0 50px rgba(255,0,0,.06);
 }
 
-/* =========================================================
-   ORDER INFO
-========================================================= */
-
 .order-info {
     padding: 22px;
     border-radius: 18px;
@@ -90,10 +82,6 @@
     font-size: 20px;
 }
 
-/* =========================================================
-   FORM
-========================================================= */
-
 .form-section {
     margin-top: 25px;
 }
@@ -118,23 +106,14 @@
 
 .form-group input,
 .form-group textarea {
-
     width: 100%;
-
     box-sizing: border-box;
-
     padding: 14px 16px;
-
     border-radius: 12px;
-
     border: 1px solid rgba(255,255,255,.1);
-
     background: rgba(255,255,255,.04);
-
     color: white;
-
     outline: none;
-
     font-family: inherit;
 }
 
@@ -145,14 +124,10 @@
 
 .form-group input:focus,
 .form-group textarea:focus {
-
     border-color: #ff0000;
-
     box-shadow:
         0 0 0 3px rgba(255,0,0,.08),
         0 0 25px rgba(255,0,0,.15);
-
-    transform: translateY(-2px);
 }
 
 .optional {
@@ -160,16 +135,11 @@
     font-size: 13px;
 }
 
-/* =========================================================
-   PAYMENT
-========================================================= */
+/* PAYMENT */
 
 .payment-section {
-
     margin-top: 30px;
-
     padding-top: 30px;
-
     border-top: 1px solid rgba(255,255,255,.08);
 }
 
@@ -177,644 +147,319 @@
     margin-bottom: 20px;
 }
 
-
-/* اختيار طرق الدفع */
-
 .payment-select {
-
     display: grid;
-
     grid-template-columns: repeat(2, 1fr);
-
     gap: 18px;
-
     margin-bottom: 25px;
 }
 
-
-/* إخفاء الراديو */
-
 .payment-option {
-
     position: relative;
-
     display: block;
-
     cursor: pointer;
 }
 
 .payment-option input {
-
     position: absolute;
-
     opacity: 0;
-
     pointer-events: none;
 }
 
-
-/* كارت الدفع الأبيض */
-
 .payment-card {
-
     position: relative;
-
     display: flex;
-
     align-items: center;
-
     gap: 15px;
-
     min-height: 90px;
-
     padding: 18px;
-
     background: #ffffff;
-
     border: 2px solid #ffffff;
-
     border-radius: 18px;
-
     color: #000000;
-
     cursor: pointer;
-
     overflow: hidden;
-
-    transition:
-        transform .3s ease,
-        border-color .3s ease,
-        box-shadow .3s ease;
+    transition: .3s ease;
 }
-
-
-/* الصور */
 
 .payment-card img {
-
     width: 55px;
-
     height: 55px;
-
     object-fit: contain;
-
     flex-shrink: 0;
 }
-
-
-/* الكلام أسود */
 
 .payment-card-info {
     text-align: right;
 }
 
 .payment-card-info h3 {
-
     margin: 0 0 5px;
-
     color: #000000;
-
     font-size: 17px;
-
     font-weight: 800;
 }
 
 .payment-card-info p {
-
     margin: 0;
-
     color: #000000;
-
     font-size: 14px;
-
     font-weight: 700;
-
     direction: ltr;
 }
 
-
-/* علامة الصح */
-
 .payment-check {
-
     position: absolute;
-
     top: 10px;
-
     left: 10px;
-
     width: 26px;
-
     height: 26px;
-
     display: flex;
-
     align-items: center;
-
     justify-content: center;
-
     border-radius: 50%;
-
     background: #ff0000;
-
     color: #ffffff;
-
     font-size: 14px;
-
     font-weight: 900;
-
     opacity: 0;
-
     transform: scale(.4);
-
-    transition:
-        opacity .3s ease,
-        transform .3s ease;
+    transition: .3s ease;
 }
 
-
-/* Hover */
-
 .payment-card:hover {
-
     transform: translateY(-5px);
-
     border-color: #ff0000;
-
     box-shadow:
         0 10px 35px rgba(255,0,0,.22),
         0 0 30px rgba(255,0,0,.12);
 }
 
-
-/* Selected */
-
 .payment-option input:checked + .payment-card {
-
     border-color: #ff0000;
-
     box-shadow:
         0 10px 40px rgba(255,0,0,.30),
         0 0 35px rgba(255,0,0,.20);
-
     transform: translateY(-4px);
 }
 
-
-/* Show check */
-
 .payment-option input:checked + .payment-card .payment-check {
-
     opacity: 1;
-
     transform: scale(1);
 }
 
-
-/* خط ضوئي للكارت المختار */
-
-.payment-option input:checked + .payment-card::after {
-
-    content: "";
-
-    position: absolute;
-
-    top: 0;
-
-    left: -100%;
-
-    width: 60%;
-
-    height: 100%;
-
-    background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(255,0,0,.13),
-        transparent
-    );
-
-    transform: skewX(-20deg);
-
-    animation: paymentShine 2s linear infinite;
-
-    pointer-events: none;
-}
-
-@keyframes paymentShine {
-
-    0% {
-        left: -100%;
-    }
-
-    100% {
-        left: 160%;
-    }
-}
-
-
-/* =========================================================
-   PAYMENT INPUTS
-========================================================= */
-
 .payment-input {
-
     margin-top: 20px;
-}
-
-.payment-input label {
-    color: #ffffff;
-}
-
-.payment-input input {
-
-    background: rgba(255,255,255,.04);
-
-    color: #ffffff;
-
-    border: 1px solid rgba(255,255,255,.12);
 }
 
 .payment-input input::placeholder {
     color: #777;
 }
 
-
-/* =========================================================
-   NOTICE
-========================================================= */
+/* NOTICE */
 
 .payment-notice {
-
     display: flex;
-
     align-items: flex-start;
-
     gap: 12px;
-
     margin-top: 20px;
-
     padding: 18px;
-
     border-radius: 16px;
-
     background: rgba(255,0,0,.06);
-
     border: 1px solid rgba(255,0,0,.25);
 }
 
 .payment-notice-icon {
-
     font-size: 24px;
-
-    animation:
-        noticePulse 1.5s ease-in-out infinite;
 }
 
 .payment-notice strong {
-
     display: block;
-
     color: #ff0000;
-
     margin-bottom: 5px;
 }
 
 .payment-notice p {
-
     margin: 0;
-
     color: #aaa;
-
     font-size: 13px;
-
     line-height: 1.8;
 }
 
-@keyframes noticePulse {
+/* PAYMENT DETAILS */
 
-    0%,100% {
-        transform: scale(1);
-    }
-
-    50% {
-        transform: scale(1.15);
-    }
+.payment-details {
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 18px;
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(255,255,255,.08);
 }
 
+.payment-details-title {
+    color: #ff0000;
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 15px;
+}
 
-/* =========================================================
-   SUBMIT BUTTON
-========================================================= */
+.payment-number {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(255,255,255,.07);
+}
+
+.payment-number:last-child {
+    border-bottom: none;
+}
+
+.payment-number span:first-child {
+    color: #aaa;
+}
+
+.payment-number strong {
+    color: white;
+    direction: ltr;
+}
+
+/* WARNINGS */
+
+.warning-box {
+    margin-top: 25px;
+    padding: 22px;
+    border-radius: 18px;
+    background: rgba(255,0,0,.05);
+    border: 1px solid rgba(255,0,0,.25);
+}
+
+.warning-box h3 {
+    margin-top: 0;
+    color: #ff0000;
+}
+
+.warning-box p {
+    color: #aaa;
+    line-height: 2;
+    font-size: 14px;
+    margin: 10px 0;
+}
+
+.warning-box strong {
+    color: white;
+}
+
+/* BUTTON */
 
 .submit-btn {
-
     position: relative;
-
     width: 100%;
-
     border: 0;
-
     padding: 17px;
-
     margin-top: 25px;
-
     border-radius: 13px;
-
     background: #ff0000;
-
     color: white;
-
     font-size: 17px;
-
     font-weight: bold;
-
     cursor: pointer;
-
-    overflow: hidden;
-
     transition: .3s ease;
-
-    box-shadow:
-        0 0 15px rgba(255,0,0,.20);
-}
-
-.submit-btn::before {
-
-    content: "";
-
-    position: absolute;
-
-    top: 0;
-
-    left: -150%;
-
-    width: 70%;
-
-    height: 100%;
-
-    background: linear-gradient(
-        100deg,
-        transparent,
-        rgba(255,255,255,.65),
-        transparent
-    );
-
-    transform: skewX(-25deg);
-
-    animation:
-        submitShine 2.5s linear infinite;
-}
-
-@keyframes submitShine {
-
-    0% {
-        left: -150%;
-    }
-
-    100% {
-        left: 150%;
-    }
+    box-shadow: 0 0 15px rgba(255,0,0,.20);
 }
 
 .submit-btn:hover {
-
-    transform:
-        translateY(-4px)
-        scale(1.02);
-
+    transform: translateY(-4px) scale(1.02);
     box-shadow:
         0 10px 35px rgba(255,0,0,.45),
         0 0 30px rgba(255,0,0,.25);
 }
 
 .submit-btn:active {
-
     transform: scale(.97);
 }
 
-
-/* =========================================================
-   BACK BUTTON
-========================================================= */
-
-.back-btn {
-
+.whatsapp-btn {
     display: block;
-
     text-align: center;
-
-    margin-top: 15px;
-
-    padding: 14px;
-
+    margin-top: 20px;
+    padding: 16px;
+    border-radius: 13px;
+    background: #25D366;
     color: white;
-
     text-decoration: none;
-
-    border: 1px solid rgba(255,255,255,.1);
-
-    border-radius: 12px;
-
+    font-size: 17px;
+    font-weight: bold;
+    box-shadow: 0 0 25px rgba(37,211,102,.25);
     transition: .3s ease;
 }
 
+.whatsapp-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(37,211,102,.35);
+}
+
+.back-btn {
+    display: block;
+    text-align: center;
+    margin-top: 15px;
+    padding: 14px;
+    color: white;
+    text-decoration: none;
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 12px;
+}
+
 .back-btn:hover {
-
     border-color: #ff0000;
-
     color: #ff0000;
 }
 
-
-/* =========================================================
-   ERROR
-========================================================= */
-
 .error-message {
-
     padding: 18px;
-
     margin-bottom: 25px;
-
     border-radius: 15px;
-
     text-align: center;
-
     background: rgba(255,0,0,.12);
-
     border: 1px solid rgba(255,0,0,.3);
-
     color: #fff;
 }
 
-
-/* =========================================================
-   SUCCESS
-========================================================= */
+/* SUCCESS */
 
 .success-screen {
-
     text-align: center;
-
     padding: 35px 10px;
 }
 
-.success-animation {
-
-    width: 115px;
-
-    height: 115px;
-
-    margin: 0 auto 30px;
-
-    position: relative;
-}
-
-.success-circle {
-
-    width: 100%;
-
-    height: 100%;
-
-    border-radius: 50%;
-
-    border: 3px solid rgba(0,214,107,.2);
-
-    border-top-color: #00d66b;
-
-    border-right-color: #00d66b;
-
-    animation:
-        successRotate 1s ease-out forwards;
-
-    box-sizing: border-box;
-}
-
-.success-check {
-
-    position: absolute;
-
-    inset: 0;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    color: #00d66b;
-
-    font-size: 65px;
-
-    font-weight: 900;
-
-    opacity: 0;
-
-    transform:
-        scale(.3)
-        rotate(-20deg);
-
-    animation:
-        successCheck .55s ease-out 1s forwards;
-}
-
-@keyframes successRotate {
-
-    0% {
-        transform:
-            rotate(0deg)
-            scale(.3);
-
-        opacity: 0;
-    }
-
-    60% {
-
-        transform:
-            rotate(300deg)
-            scale(1.08);
-
-        opacity: 1;
-    }
-
-    100% {
-
-        transform:
-            rotate(360deg)
-            scale(1);
-
-        opacity: 1;
-    }
-}
-
-@keyframes successCheck {
-
-    0% {
-
-        opacity: 0;
-
-        transform:
-            scale(.3)
-            rotate(-20deg);
-    }
-
-    70% {
-
-        opacity: 1;
-
-        transform:
-            scale(1.15)
-            rotate(5deg);
-    }
-
-    100% {
-
-        opacity: 1;
-
-        transform:
-            scale(1)
-            rotate(0deg);
-    }
+.success-icon {
+    font-size: 80px;
+    margin-bottom: 20px;
 }
 
 .success-title {
-
     color: #00d66b;
-
-    font-size: 22px;
-
+    font-size: 25px;
     font-weight: bold;
-
-    margin-bottom: 15px;
 }
 
 .success-screen h2 {
-
     font-size: 30px;
-
-    margin: 10px 0 15px;
+    margin: 15px 0;
 }
 
 .success-screen p {
-
     color: #aaa;
-
     line-height: 2;
 }
 
 .success-order {
-
     margin: 25px auto;
-
     padding: 18px;
-
     max-width: 500px;
-
     border-radius: 17px;
-
     background: rgba(255,255,255,.03);
-
     border: 1px solid rgba(255,255,255,.07);
 }
 
@@ -826,10 +471,7 @@
     color: #fff;
 }
 
-
-/* =========================================================
-   MOBILE
-========================================================= */
+/* MOBILE */
 
 @media(max-width:600px) {
 
@@ -851,19 +493,12 @@
 
     .info-row {
         flex-direction: column;
-
         gap: 5px;
     }
 
-    .success-animation {
-
-        width: 95px;
-
-        height: 95px;
-    }
-
-    .success-check {
-        font-size: 55px;
+    .payment-number {
+        flex-direction: column;
+        align-items: flex-start;
     }
 }
 
@@ -871,13 +506,9 @@
 
 </head>
 
-
 <body>
 
-
-<!-- =========================================================
-     NAVBAR
-========================================================= -->
+<!-- NAVBAR -->
 
 <header class="navbar">
 
@@ -905,7 +536,6 @@
 
     </nav>
 
-
     {% if session.get('user_id') %}
 
         <div class="user-menu">
@@ -931,14 +561,9 @@
 </header>
 
 
-<!-- =========================================================
-     MAIN
-========================================================= -->
-
 <main>
 
 <section class="checkout-page">
-
 
     <div class="checkout-header">
 
@@ -962,178 +587,66 @@
 
     {% if success %}
 
-
-        <!-- =================================================
-             SUCCESS
-        ================================================= -->
-
         <div class="success-screen">
 
-
-            <div class="success-animation">
-
-                <div class="success-circle"></div>
-
-                <div class="success-check">
-                    ✓
-                </div>
-
+            <div class="success-icon">
+                ✅
             </div>
-
 
             <div class="success-title">
-                تم تأكيد التحويل بنجاح ✓
+                تم إرسال الطلب بنجاح
             </div>
 
-
             <h2>
-                طلبك وصل للإدارة
+                خطوة أخيرة لإثبات التحويل
             </h2>
 
-
             <p>
-
-                تم إرسال بيانات الطلب والتحويل للإدارة بنجاح.
-
+                تم إرسال بيانات طلبك للإدارة.
                 <br>
-
-                سيتم مراجعة التحويل والتواصل معك للبدء في تنفيذ الخدمة.
-
+                الآن اضغط على الزر بالأسفل لفتح WhatsApp
+                وإرسال Screenshot لإثبات التحويل.
             </p>
-
 
             <div class="success-order">
 
                 <p>
                     الخدمة:
-                    <strong>
-                        {{ product }}
-                    </strong>
+                    <strong>{{ product }}</strong>
                 </p>
 
                 <p>
                     الباقة / الكمية:
-                    <strong>
-                        {{ duration }}
-                    </strong>
+                    <strong>{{ duration }}</strong>
                 </p>
 
                 <p>
                     السعر:
-                    <strong>
-                        {{ price }} ج
-                    </strong>
+                    <strong>{{ price }} جنيه</strong>
                 </p>
 
             </div>
 
+            {% if whatsapp_url %}
 
-            <a href="/services" class="back-btn">
+                <a
+                    href="{{ whatsapp_url }}"
+                    target="_blank"
+                    class="whatsapp-btn"
+                >
+                    📱 إرسال إثبات التحويل عبر WhatsApp
+                </a>
+
+            {% endif %}
+
+            <a
+                href="/services"
+                class="back-btn"
+            >
                 العودة للخدمات
             </a>
 
-
         </div>
-
-
-        <!-- =================================================
-             SUCCESS SOUND
-        ================================================= -->
-
-        <script>
-
-        (function(){
-
-            try {
-
-                const AudioContext =
-                    window.AudioContext ||
-                    window.webkitAudioContext;
-
-                if (!AudioContext) return;
-
-                const ctx = new AudioContext();
-
-                if (ctx.state === "suspended") {
-                    ctx.resume();
-                }
-
-                const now = ctx.currentTime;
-
-                const notes = [
-                    {
-                        freq: 523.25,
-                        time: 0
-                    },
-                    {
-                        freq: 659.25,
-                        time: .12
-                    },
-                    {
-                        freq: 783.99,
-                        time: .24
-                    },
-                    {
-                        freq: 1046.50,
-                        time: .38
-                    }
-                ];
-
-                notes.forEach(function(note){
-
-                    const oscillator =
-                        ctx.createOscillator();
-
-                    const gain =
-                        ctx.createGain();
-
-                    oscillator.type = "sine";
-
-                    oscillator.frequency.value =
-                        note.freq;
-
-                    gain.gain.setValueAtTime(
-                        0,
-                        now + note.time
-                    );
-
-                    gain.gain.linearRampToValueAtTime(
-                        .18,
-                        now + note.time + .03
-                    );
-
-                    gain.gain.exponentialRampToValueAtTime(
-                        .001,
-                        now + note.time + .45
-                    );
-
-                    oscillator.connect(gain);
-
-                    gain.connect(ctx.destination);
-
-                    oscillator.start(
-                        now + note.time
-                    );
-
-                    oscillator.stop(
-                        now + note.time + .5
-                    );
-
-                });
-
-            }
-
-            catch(e) {
-
-                console.log(
-                    "Success sound unavailable"
-                );
-
-            }
-
-        })();
-
-        </script>
 
 
     {% else %}
@@ -1148,9 +661,7 @@
         {% endif %}
 
 
-        <!-- =================================================
-             ORDER INFORMATION
-        ================================================= -->
+        <!-- ORDER -->
 
         <div class="order-info">
 
@@ -1166,7 +677,6 @@
 
             </div>
 
-
             <div class="info-row">
 
                 <span class="info-label">
@@ -1179,7 +689,6 @@
 
             </div>
 
-
             <div class="info-row">
 
                 <span class="info-label">
@@ -1187,7 +696,7 @@
                 </span>
 
                 <span class="info-value price-value">
-                    {{ price }} ج
+                    {{ price }} جنيه
                 </span>
 
             </div>
@@ -1195,15 +704,12 @@
         </div>
 
 
-        <!-- =================================================
-             FORM
-        ================================================= -->
+        <!-- FORM -->
 
         <form
             action="{{ url_for('send_order') }}"
             method="POST"
         >
-
 
             <input
                 type="hidden"
@@ -1211,20 +717,17 @@
                 value="{{ product }}"
             >
 
-
             <input
                 type="hidden"
                 name="duration"
                 value="{{ duration }}"
             >
 
-
             <input
                 type="hidden"
                 name="price"
                 value="{{ price }}"
             >
-
 
             <input
                 type="hidden"
@@ -1233,10 +736,6 @@
             >
 
 
-            <!-- =================================================
-                 SOCIAL MEDIA
-            ================================================= -->
-
             {% if is_social %}
 
             <div class="form-section">
@@ -1244,7 +743,6 @@
                 <h2>
                     🌐 بيانات الحساب
                 </h2>
-
 
                 <div class="form-group">
 
@@ -1261,7 +759,6 @@
                     >
 
                 </div>
-
 
                 <div class="form-group">
 
@@ -1284,22 +781,16 @@
             {% endif %}
 
 
-            <!-- =================================================
-                 DETAILS
-            ================================================= -->
+            <!-- DETAILS -->
 
             <div class="form-section">
 
                 <h2>
-
                     📝 تفاصيل الطلب
-
                     <span class="optional">
                         (اختياري)
                     </span>
-
                 </h2>
-
 
                 <div class="form-group">
 
@@ -1313,19 +804,91 @@
             </div>
 
 
-            <!-- =================================================
-                 PAYMENT
-            ================================================= -->
+            <!-- PAYMENT -->
 
             {% if not is_custom %}
 
             <div class="payment-section">
 
-
                 <h2>
-                    💳 اختر طريقة الدفع
+                    💳 طريقة الدفع
                 </h2>
 
+
+                <div class="payment-notice">
+
+                    <div class="payment-notice-icon">
+                        💰
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            قم بإرسال المبلغ المطلوب
+                        </strong>
+
+                        <p>
+                            قم بتحويل المبلغ المطلوب بالكامل حسب السعر الموضح في طلبك
+                            إلى أحد أرقام الدفع التالية.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PAYMENT NUMBERS -->
+
+                <div class="payment-details">
+
+                    <div class="payment-details-title">
+                        💰 بيانات الدفع
+                    </div>
+
+                    <div class="payment-number">
+
+                        <span>
+                            InstaPay
+                        </span>
+
+                        <strong>
+                            01123308826
+                        </strong>
+
+                    </div>
+
+                    <div class="payment-number">
+
+                        <span>
+                            Etisalat Cash
+                        </span>
+
+                        <strong>
+                            01123308826
+                        </strong>
+
+                    </div>
+
+                    <div class="payment-number">
+
+                        <span>
+                            المبلغ المطلوب
+                        </span>
+
+                        <strong style="color:#ff0000;">
+                            {{ price }} جنيه
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PAYMENT SELECT -->
+
+                <h3 style="margin-top:25px;">
+                    اختر طريقة الدفع
+                </h3>
 
                 <div class="payment-select">
 
@@ -1343,12 +906,10 @@
 
                         <div class="payment-card">
 
-
                             <img
                                 src="{{ url_for('static', filename='images/instapay.png') }}"
                                 alt="InstaPay"
                             >
-
 
                             <div class="payment-card-info">
 
@@ -1362,18 +923,16 @@
 
                             </div>
 
-
                             <div class="payment-check">
                                 ✓
                             </div>
-
 
                         </div>
 
                     </label>
 
 
-                    <!-- ETISALAT CASH -->
+                    <!-- ETISALAT -->
 
                     <label class="payment-option">
 
@@ -1385,12 +944,10 @@
 
                         <div class="payment-card">
 
-
                             <img
                                 src="{{ url_for('static', filename='images/etisalat-cash.png') }}"
                                 alt="Etisalat Cash"
                             >
-
 
                             <div class="payment-card-info">
 
@@ -1404,21 +961,18 @@
 
                             </div>
 
-
                             <div class="payment-check">
                                 ✓
                             </div>
-
 
                         </div>
 
                     </label>
 
-
                 </div>
 
 
-                <!-- رقم الهاتف -->
+                <!-- TRANSFER PHONE -->
 
                 <div class="form-group payment-input">
 
@@ -1429,7 +983,7 @@
 
                     <input
                         type="tel"
-                        name="transaction_phone"
+                        name="transfer_phone"
                         placeholder="مثال: 01012345678"
                         required
                     >
@@ -1437,18 +991,18 @@
                 </div>
 
 
-                <!-- المبلغ -->
+                <!-- TRANSFER AMOUNT -->
 
                 <div class="form-group payment-input">
 
                     <label>
-                        💰 المبلغ المحول
+                        💰 المبلغ الذي قمت بتحويله
                         <span>*</span>
                     </label>
 
                     <input
                         type="number"
-                        name="paid_amount"
+                        name="transfer_amount"
                         placeholder="اكتب المبلغ الذي قمت بتحويله"
                         min="1"
                         step="0.01"
@@ -1458,29 +1012,30 @@
                 </div>
 
 
-                <!-- تنبيه -->
+                <!-- AFTER PAYMENT -->
 
                 <div class="payment-notice">
 
                     <div class="payment-notice-icon">
-                        ⚡
+                        📸
                     </div>
 
                     <div>
 
                         <strong>
-                            بعد إتمام التحويل
+                            بعد التحويل
                         </strong>
 
                         <p>
 
-                            اختار طريقة الدفع واكتب رقم الهاتف
-                            الذي تم التحويل منه والمبلغ المحول،
-                            ثم اضغط على زر "تم التحويل".
+                            بعد تحويل المبلغ، اضغط على
+                            <strong style="color:white;">
+                                إتمام الطلب وإرسال إثبات التحويل عبر WhatsApp
+                            </strong>
 
-                            <br>
-
-                            سيتم إرسال إشعار فوري للإدارة لمراجعة عملية الدفع.
+                            وسيتم إرسال بيانات طلبك للإدارة،
+                            ثم فتح WhatsApp لإرسال Screenshot
+                            لإثبات التحويل.
 
                         </p>
 
@@ -1489,14 +1044,52 @@
                 </div>
 
 
+                <!-- WARNINGS -->
+
+                <div class="warning-box">
+
+                    <h3>
+                        ⚠️ تنبيهات مهمة قبل إتمام الطلب
+                    </h3>
+
+                    <p>
+                        <strong>1.</strong>
+                        لا تقم بتحويل أي مبلغ قبل التأكد من الخدمة
+                        والسعر الموضحين في صفحة الطلب.
+                    </p>
+
+                    <p>
+                        <strong>2.</strong>
+                        بعد التحويل، يجب إتمام الطلب وإرسال صورة
+                        إثبات التحويل عبر WhatsApp حتى نتمكن من مراجعة العملية.
+                    </p>
+
+                    <p>
+                        <strong>3.</strong>
+                        التحويل بدون إرسال الطلب وبياناته لا يُعتبر
+                        طلبًا مكتملًا وقد يؤدي إلى تأخير التنفيذ لحين التأكد من البيانات.
+                    </p>
+
+                    <p>
+                        <strong>4.</strong>
+                        تأكد من صحة رقم التحويل والمبلغ قبل إرسال الأموال،
+                        ولا تقم بالتحويل إلى أي رقم غير موضح داخل الموقع.
+                    </p>
+
+                    <p>
+                        <strong>5.</strong>
+                        احتفظ بإيصال التحويل حتى يتم تأكيد استلام
+                        ومراجعة المبلغ من BOOSTIFY STORE.
+                    </p>
+
+                </div>
+
             </div>
 
             {% endif %}
 
 
-            <!-- =================================================
-                 SUBMIT
-            ================================================= -->
+            <!-- SUBMIT -->
 
             <button
                 type="submit"
@@ -1509,12 +1102,11 @@
 
                 {% else %}
 
-                    💳 تم التحويل — إرسال الطلب
+                    🟢 إتمام الطلب وإرسال إثبات التحويل عبر WhatsApp
 
                 {% endif %}
 
             </button>
-
 
         </form>
 
@@ -1529,17 +1121,12 @@
 
     {% endif %}
 
-
     </div>
 
 </section>
 
 </main>
 
-
-<!-- =========================================================
-     FOOTER
-========================================================= -->
 
 <footer>
 
@@ -1552,7 +1139,6 @@
     </p>
 
 </footer>
-
 
 </body>
 

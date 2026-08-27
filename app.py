@@ -4,14 +4,24 @@ import sqlite3
 import requests
 from urllib.parse import urlparse
 import os
+from dotenv import load_dotenv
+
+# =========================================================
+# ENVIRONMENT
+# =========================================================
+
+load_dotenv()
+
+# =========================================================
+# FLASK
+# =========================================================
 
 app = Flask(__name__)
 
-# =========================================================
-# SETTINGS
-# =========================================================
-
-app.secret_key = os.environ.get("SECRET_KEY")
+app.secret_key = os.environ.get(
+    "SECRET_KEY",
+    "BOOSTIFY_LOCAL_SECRET_KEY_2026_CHANGE_ME"
+)
 
 DATABASE = "boostify.db"
 
@@ -22,18 +32,21 @@ DATABASE = "boostify.db"
 BOT_TOKEN = os.environ.get("BOT_TOKEN")
 CHAT_ID = os.environ.get("CHAT_ID")
 
+
 def send_telegram_message(message):
+
     if not BOT_TOKEN:
-        print("❌ Telegram Error: BOT_TOKEN is missing from .env")
+        print("❌ BOT_TOKEN is missing")
         return False
 
     if not CHAT_ID:
-        print("❌ Telegram Error: CHAT_ID is missing from .env")
+        print("❌ CHAT_ID is missing")
         return False
 
     url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
 
     try:
+
         response = requests.post(
             url,
             data={
@@ -49,40 +62,13 @@ def send_telegram_message(message):
         print("================================")
 
         if response.ok:
-            data = response.json()
-            return data.get("ok", False)
-
-        return False
-
-    except requests.RequestException as e:
-        print("================================")
-        print("TELEGRAM CONNECTION ERROR:", str(e))
-        print("================================")
-        return False
-
-    url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
-
-    try:
-
-        response = requests.post(
-            url,
-            data={
-                "chat_id": CHAT_ID,
-                "text": message
-            },
-            timeout=10
-        )
-
-        print("Telegram:", response.text)
-
-        if response.ok:
             return response.json().get("ok", False)
 
         return False
 
     except requests.RequestException as e:
 
-        print("Telegram Error:", e)
+        print("Telegram Error:", str(e))
 
         return False
 
@@ -122,7 +108,6 @@ def init_db():
     """)
 
     conn.commit()
-
     conn.close()
 
 
@@ -158,7 +143,6 @@ def home():
     )
 
     conn.commit()
-
     conn.close()
 
     return render_template("index.html")
@@ -263,7 +247,6 @@ def login():
             session["phone"] = user["phone"]
 
             if is_safe_url(next_page):
-
                 return redirect(next_page)
 
             return redirect(
@@ -372,6 +355,8 @@ def register():
 
             user_id = cursor.lastrowid
 
+            session.clear()
+
             session["user_id"] = user_id
             session["name"] = name
             session["email"] = email
@@ -390,7 +375,6 @@ def register():
         conn.close()
 
         if is_safe_url(next_page):
-
             return redirect(next_page)
 
         return redirect(
@@ -502,10 +486,6 @@ def checkout():
         ""
     ).strip()
 
-    # -----------------------------------------------------
-    # تحديد نوع الخدمة
-    # -----------------------------------------------------
-
     is_social = service in [
         "followers",
         "likes",
@@ -520,10 +500,6 @@ def checkout():
             "تواصل معنا"
         ]
     )
-
-    # -----------------------------------------------------
-    # حفظ الطلب في Session
-    # -----------------------------------------------------
 
     if product:
 
@@ -612,10 +588,6 @@ def send_order():
             )
         )
 
-    # -----------------------------------------------------
-    # بيانات الطلب
-    # -----------------------------------------------------
-
     product = request.form.get(
         "product",
         ""
@@ -636,10 +608,6 @@ def send_order():
         ""
     ).strip()
 
-    # -----------------------------------------------------
-    # البيانات الإضافية
-    # -----------------------------------------------------
-
     order_details = request.form.get(
         "order_details",
         ""
@@ -654,10 +622,6 @@ def send_order():
         "account_link",
         ""
     ).strip()
-
-    # -----------------------------------------------------
-    # بيانات الدفع
-    # -----------------------------------------------------
 
     payment_method = request.form.get(
         "payment_method",
@@ -674,10 +638,6 @@ def send_order():
         ""
     ).strip()
 
-    # -----------------------------------------------------
-    # تحقق من الطلب
-    # -----------------------------------------------------
-
     if not product:
 
         return redirect(
@@ -685,7 +645,7 @@ def send_order():
         )
 
     # -----------------------------------------------------
-    # حفظ البيانات
+    # SAVE COMPLETE ORDER
     # -----------------------------------------------------
 
     session["pending_order"] = {
@@ -712,7 +672,7 @@ def send_order():
     }
 
     # -----------------------------------------------------
-    # بيانات العميل
+    # CUSTOMER
     # -----------------------------------------------------
 
     customer_name = session.get(
@@ -731,7 +691,7 @@ def send_order():
     )
 
     # -----------------------------------------------------
-    # رسالة Telegram
+    # TELEGRAM
     # -----------------------------------------------------
 
     message = f"""🛒 طلب جديد - BOOSTIFY STORE
@@ -756,10 +716,10 @@ def send_order():
 {product}
 
 🔢 الباقة / الكمية:
-{duration}
+{duration or "غير محدد"}
 
-💰 السعر:
-{price} جنيه
+💰 السعر المطلوب:
+{price or "حسب الطلب"} جنيه
 
 ━━━━━━━━━━━━━━━━━━
 
@@ -794,20 +754,62 @@ Username:
 🟡 حالة الطلب:
 تم إرسال الطلب وينتظر مراجعة الدفع
 
-📸 صورة إثبات التحويل:
-سيتم إرسالها للعميل عبر WhatsApp
+📸 إثبات التحويل:
+سيتم إرساله عبر WhatsApp
 """
 
+    sent = send_telegram_message(message)
+
     # -----------------------------------------------------
-    # إرسال Telegram
+    # WHATSAPP
     # -----------------------------------------------------
 
-    sent = send_telegram_message(
-        message
+    whatsapp_number = "201123308826"
+
+    whatsapp_message = f"""مرحباً BOOSTIFY STORE 👋
+
+أريد تأكيد طلبي:
+
+👤 الاسم:
+{customer_name}
+
+📦 الخدمة:
+{product}
+
+🔢 الباقة / الكمية:
+{duration or "غير محدد"}
+
+💰 السعر:
+{price or "حسب الطلب"} جنيه
+
+💳 طريقة الدفع:
+{payment_method or "غير محددة"}
+
+📱 رقم التحويل:
+{transfer_phone or "غير مذكور"}
+
+💰 المبلغ المحول:
+{transfer_amount or "غير مذكور"} جنيه
+
+🌐 Username:
+{username or "غير مذكور"}
+
+🔗 رابط الحساب:
+{account_link or "غير مذكور"}
+
+📝 تفاصيل الطلب:
+{order_details or "لا يوجد"}
+
+سأرسل الآن صورة Screenshot لإثبات التحويل.
+"""
+
+    whatsapp_url = (
+        f"https://wa.me/{whatsapp_number}"
+        f"?text={requests.utils.quote(whatsapp_message)}"
     )
 
     # -----------------------------------------------------
-    # تحديد القيم للصفحة
+    # RESULT
     # -----------------------------------------------------
 
     is_social = service in [
@@ -824,10 +826,6 @@ Username:
             "تواصل معنا"
         ]
     )
-
-    # -----------------------------------------------------
-    # نجاح
-    # -----------------------------------------------------
 
     if sent:
 
@@ -854,12 +852,10 @@ Username:
 
             success=True,
 
-            error=None
-        )
+            error=None,
 
-    # -----------------------------------------------------
-    # فشل Telegram
-    # -----------------------------------------------------
+            whatsapp_url=whatsapp_url
+        )
 
     return render_template(
         "checkout.html",
@@ -884,12 +880,14 @@ Username:
 
         success=False,
 
-        error="حصل خطأ أثناء إرسال الطلب. حاول مرة أخرى."
+        error="حصل خطأ أثناء إرسال الطلب. حاول مرة أخرى.",
+
+        whatsapp_url=whatsapp_url
     )
 
 
 # =========================================================
-# WHATSAPP
+# WHATSAPP PROOF
 # =========================================================
 
 @app.route("/whatsapp-proof")
@@ -945,12 +943,13 @@ def whatsapp_proof():
 
 
 # =========================================================
-# RUN
+# START
 # =========================================================
 
-if __name__ == "__main__":
+init_db()
 
-    init_db()
+
+if __name__ == "__main__":
 
     app.run(
         host="127.0.0.1",
